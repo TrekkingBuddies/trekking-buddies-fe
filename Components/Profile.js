@@ -1,6 +1,6 @@
 
 
-export default function Profile ({navigation}){
+export default function Profile (){
     return (
         <Text>Hello</Text>
     )

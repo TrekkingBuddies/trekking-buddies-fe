@@ -4,7 +4,7 @@ import { View, Text, TextInput, TouchableOpacity, ImageBackground, StyleSheet } 
 //styling sheet required here? <<<<<< ------- import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 
 
-export default function LoginScreen(){
+export default function LoginScreen({navigation}){
     // const [username, setUsername] = useState('')
     // const [password, setPassword] = useState('')
     //error handling state
@@ -23,12 +23,12 @@ export default function LoginScreen(){
                 <TextInput placeholder="Username" />
                 <TextInput placeholder="Password" />
 
-                <TouchableOpacity>
+                <TouchableOpacity onPress={()=> navigation.navigate('HikersList')}>
                     <Text>Login</Text>
                 </TouchableOpacity>
 
                 <Text>Don't have an account?</Text>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={()=> navigation.navigate('Createprofile')}>
                     <Text>Sign up</Text>
                 </TouchableOpacity>
             </View>
