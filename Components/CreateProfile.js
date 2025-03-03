@@ -1,11 +1,8 @@
 
 
 
-
 export default function CreateProfile (){
-
-
     return (
-        <View></View>
+        <Text>Hello</Text>
     )
 }

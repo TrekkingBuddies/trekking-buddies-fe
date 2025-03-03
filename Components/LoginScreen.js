@@ -15,13 +15,13 @@ export default function LoginScreen(){
     return (
 
         <View>
-            <ImageBackground source={require('./assets/hiking.jpeg')}></ImageBackground>
+            <ImageBackground></ImageBackground>
             <View> 
                 <Text>Hey<Text>Buddy</Text>,</Text>
                 <Text>Welcome back</Text>
 
-                <TextInput placeholder="Username" value={username}/>
-                <TextInput placeholder="Password" value={password}/>
+                <TextInput placeholder="Username" />
+                <TextInput placeholder="Password" />
 
                 <TouchableOpacity>
                     <Text>Login</Text>
