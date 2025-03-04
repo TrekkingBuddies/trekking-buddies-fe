@@ -7,7 +7,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import LoginScreen from './Components/LoginScreen';
 import CreateProfile from './Components/CreateProfile';
 import DirectMessage from './Components/DirectMessage';
-import HikersList from './Components/HikersList';
+import Hikers from './Components/Hikers';
 import Messages from './Components/Messages';
 import Profile from './Components/Profile';
 
@@ -22,7 +22,7 @@ export default function App() {
         <Stack.Screen name="Login" component={LoginScreen}/>
         <Stack.Screen name="CreateProfile" component={CreateProfile}/>
         <Stack.Screen name="Profile" component={Profile}/>
-        <Stack.Screen name="HikersList" component={HikersList}/>
+        <Stack.Screen name="Hikers" component={Hikers}/>
         <Stack.Screen name="Messages" component={Messages}/>
         <Stack.Screen name="DirectMessage" component={DirectMessage}/>
       </Stack.Navigator>
