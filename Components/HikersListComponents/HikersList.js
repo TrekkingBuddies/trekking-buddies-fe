@@ -7,8 +7,8 @@ export default function HikersList() {
     const [hikers, setHikers] = useState([])
 
     useEffect(() => {
-        getHikers().then((hikers) => {
-            setHikers(hikers)
+        getHikers().then((users) => {
+            setHikers(users)
         })
     }, [])
     return (
