@@ -7,7 +7,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import LoginScreen from './Components/LoginScreen';
 import CreateProfile from './Components/CreateProfile';
 import DirectMessage from './Components/DirectMessage';
-import HikersList from './Components/HikersList';
+import Hikers from './Components/Hikers';
 import Messages from './Components/Messages';
 import Profile from './Components/Profile';
 import { auth } from './configs/firebaseConfig';
