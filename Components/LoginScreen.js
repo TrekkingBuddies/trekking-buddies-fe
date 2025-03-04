@@ -15,7 +15,7 @@ export default function LoginScreen({navigation}){
     return (
 
         <View>
-            <ImageBackground></ImageBackground>
+            <ImageBackground source={require('../assets/hiking.png')}></ImageBackground>
             <View> 
                 <Text>Hey<Text>Buddy</Text>,</Text>
                 <Text>Welcome back</Text>
@@ -28,7 +28,7 @@ export default function LoginScreen({navigation}){
                 </TouchableOpacity>
 
                 <Text>Don't have an account?</Text>
-                <TouchableOpacity onPress={()=> navigation.navigate('Createprofile')}>
+                <TouchableOpacity onPress={()=> navigation.navigate('CreateProfile')}>
                     <Text>Sign up</Text>
                 </TouchableOpacity>
             </View>
@@ -36,3 +36,10 @@ export default function LoginScreen({navigation}){
         
     )
 }
+
+const styles = StyleSheet.create({
+    background: {
+        justifyContent: 'center',
+        backgroundColor: '#E8F5E9',
+    }
+})
