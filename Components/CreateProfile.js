@@ -5,6 +5,7 @@ import { doc, setDoc } from 'firebase/firestore';
 import { db } from '../configs/firebaseConfig';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import DropDownPicker from "react-native-dropdown-picker";
+import axios from 'axios';
 
 export default function CreateProfile (){
     const [email, setEmail] = useState('');
@@ -28,15 +29,37 @@ export default function CreateProfile (){
             const response = await createUserWithEmailAndPassword(auth, email, password);
             const user = response.user; 
             const uid = user.uid;
-            console.log(response)
-            
-            await setDoc(doc(db, 'users', uid), {
+            const token = await user.getIdToken()
+            console.log("token in create profile", token )
+
+            const headers = {
+                'Content-Type': 'application/json',
+                'Authorization': token
+            };
+
+            const userData = {
                 bio: bio,
                 location: location,
                 email: email,
                 skill_level: skillLevel
+            }
+
+            await axios.post('https://trekking-buddies.onrender.com/api/users', userData, { headers }).then((response) => {
+                console.log("response in axios post", response)
+                alert("Signed up!")
+            }).catch((error) => {
+                alert("Post request failed to sign up")
+                console.log("error in axios post", error)
             });
-            alert("Signed up!")
+
+            // TO SEND FROM FRONT-END DIRECTLY, NOT NEEDED UNLESS BACK-END BREAKS.
+            // await setDoc(doc(db, 'users', uid), { 
+            //     bio: bio,
+            //     location: location,
+            //     email: email,
+            //     skill_level: skillLevel
+            // });
+            
 
         } catch (error) {
             console.log(error)
