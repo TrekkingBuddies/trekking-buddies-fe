@@ -1,68 +1,52 @@
-import { View, Platform } from 'react-native';
-import { useLinkBuilder, useTheme } from '@react-navigation/native';
-import { Text, PlatformPressable } from '@react-navigation/elements';
+import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import Messages from './Messages';
+import Hikers from './Hikers';
+import { StyleSheet} from 'react-native'
 
-function NavBar({ state, descriptors, navigation }) {
-  const { colors } = useTheme();
-  const { buildHref } = useLinkBuilder();
+const Tab = createBottomTabNavigator();
 
+export default function Navbar() {
   return (
-    <View style={{ flexDirection: 'row' }}>
-      {state.routes.map((route, index) => {
-        const { options } = descriptors[route.key];
-        const label =
-          options.tabBarLabel !== undefined
-            ? options.tabBarLabel
-            : options.title !== undefined
-              ? options.title
-              : route.name;
-
-        const isFocused = state.index === index;
-
-        const onPress = () => {
-          const event = navigation.emit({
-            type: 'tabPress',
-            target: route.key,
-            canPreventDefault: true,
-          });
-
-          if (!isFocused && !event.defaultPrevented) {
-            navigation.navigate(route.name, route.params);
-          }
-        };
-
-        const onLongPress = () => {
-          navigation.emit({
-            type: 'tabLongPress',
-            target: route.key,
-          });
-        };
-
-        return (
-          <PlatformPressable
-            href={buildHref(route.name, route.params)}
-            accessibilityState={isFocused ? { selected: true } : {}}
-            accessibilityLabel={options.tabBarAccessibilityLabel}
-            testID={options.tabBarButtonTestID}
-            onPress={onPress}
-            onLongPress={onLongPress}
-            style={{ flex: 1 }}
-          >
-            <Text style={{ color: isFocused ? colors.primary : colors.text }}>
-              {label}
-            </Text>
-          </PlatformPressable>
-        );
-      })}
-    </View>
+    <Tab.Navigator
+  initialRouteName="Hikers"
+  screenOptions={{
+    tabBarActiveTintColor: '#2f4f4f',
+    tabBarInactiveTintColor: 'white',
+    tabBarStyle: styles.navbar,
+    tabBarLabelStyle: { fontSize: 12},
+    tabBarIconStyle: { marginBottom: -3 },
+  }}
+>
+      <Tab.Screen
+        name="Hikers"
+        component={Hikers}
+        options={{
+          tabBarLabel: 'Hikers',
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="account-search-outline" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Messages"
+        component={Messages}
+        options={{
+          tabBarLabel: 'Messages',
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="message-text-outline" color={color} size={size} />
+          ),
+        }}
+      />
+    </Tab.Navigator>
   );
 }
 
-const MyTabs = createBottomTabNavigator({
-  tabBar: (props) => <NavBar {...props} />,
-  screens: {
-    Home: HomeScreen,
-    Profile: ProfileScreen,
-  },
-});
+const styles = StyleSheet.create({
+    navbar: {
+      backgroundColor: '#52796f',
+      height: 70,
+      paddingTop: 7
+    },
+  });
