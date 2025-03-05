@@ -15,7 +15,7 @@ const UserProvider = ({children}) => {
     const unsubscribe = onAuthStateChanged(auth, async (authUser) => {
           // const userToken = await user.getIdToken()
           // console.log("USER TOKEN ---------->", await user.getIdToken())
-          // console.log("user in app", user)
+          console.log("response in UserContext", authUser)
           setUser(authUser);
           setLoading(false) 
         })
