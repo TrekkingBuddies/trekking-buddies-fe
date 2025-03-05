@@ -16,7 +16,7 @@ const handleSignOut = async () => {
   return (
     <View style={styles.header}>
       <Text></Text>
-      <Button title="Sign Out" color="white" onPress={handleSignOut} /> 
+      <Button title="Sign Out" color="#2f4f4f" onPress={handleSignOut} /> 
     </View>
   )
 }
