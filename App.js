@@ -1,20 +1,14 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet} from "react-native";
 import * as React from "react";
-import { NavigationContainer, StackActions } from "@react-navigation/native";
+import { NavigationContainer} from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-//import {CreateProfile, DirectMessage, HikersList, Messages, Profile} from "./PagesCollection"
-import LoginScreen from "./Components/LoginScreen";
-import CreateProfile from "./Components/CreateProfile";
-import DirectMessage from "./Components/DirectMessage";
-import HikersList from "./Components/HikersList";
-import Messages from "./Components/Messages";
-import Profile from "./Components/Profile";
-import { auth } from "./configs/firebaseConfig";
-import { useEffect, useStatem, useContext } from "react";
-import { onAuthStateChanged } from "firebase/auth";
-import Header from "./Components/Header";
-import { UserContext, UserProvider } from "./contexts/UserContext";
+import LoginScreen from './Components/LoginScreen';
+import CreateProfile from './Components/CreateProfile';
+import DirectMessage from './Components/DirectMessage';
+import Profile from './Components/Profile';
+import {  useContext } from 'react';
+import Header from './Components/Header';
+import { UserContext, UserProvider } from './contexts/UserContext';
 import Navbar from "./Components/Navbar";
 
 const Stack = createNativeStackNavigator();
@@ -29,7 +23,7 @@ export default function App() {
 
 const MainApp = () => {
   const { user } = useContext(UserContext); // Destructure the user context
-
+  console.log("User in app", user)
   return (
     <NavigationContainer>
       <Stack.Navigator
