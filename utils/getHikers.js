@@ -1,24 +1,24 @@
 import axios from "axios";
+export default function getHikers(token) {
 
-import { UserContext, UserProvider } from './contexts/UserContext';
-import { useContext } from 'react';
-
-export default function getHikers() {
-    const { user } = useContext(UserContext)
-    
-
-    const apiKey = process.env.REACT_APP_API_KEY
-    if(!apiKey) {
-        console.log(apiKey)
-        console.log(user)
+    if (!token) {
+        console.log("no valid token")
     } else {
-        return axios.get("https://trekking-buddies.onrender.com/api/users", {headers: {Authorization: `Bearer ${apiKey}` }})
-        .then(({data}) => {
-            console.log(data)
-            return data.users
-        })
+        const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': token
+        }
+        return axios.get("https://trekking-buddies.onrender.com/api/users", { headers })
+            // .then(({ data }) => {
+            //     console.log(data, "<<<<data")
+            //     return data.users
+            // })
+            // .catch((err)=>
+            // console.log(err, "get hikers error"))
     }
 }
+
+
 
 //     return {users:[{
 //         avatar_id: 3,
