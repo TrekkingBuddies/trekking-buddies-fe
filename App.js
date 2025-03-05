@@ -7,10 +7,11 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import LoginScreen from './Components/LoginScreen';
 import CreateProfile from './Components/CreateProfile';
 import DirectMessage from './Components/DirectMessage';
-import HikersList from './Components/HikersList';
+import Hikers from './Components/Hikers';
 import Messages from './Components/Messages';
 import Profile from './Components/Profile';
 import { auth } from './configs/firebaseConfig';
+import HikersList from './Components/HikersListComponents/HikersList';
 import { useEffect, useStatem, useContext } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import Header from './Components/Header';
@@ -38,7 +39,7 @@ const MainApp = () => {
         }}>
         {user ? (
           <>
-            <Stack.Screen name="HikersList" component={HikersList} />
+            <Stack.Screen name="Hikers" component={Hikers} />
             <Stack.Screen name="Profile" component={Profile} />
             <Stack.Screen name="Messages" component={Messages} />
             <Stack.Screen name="DirectMessage" component={DirectMessage} />
