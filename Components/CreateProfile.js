@@ -6,21 +6,21 @@ import {
   ImageBackground,
   StyleSheet,
 } from "react-native";
-import React, { Component, useState } from "react";
+import React, { Component, useState, useEffect } from "react";
 import { auth } from "../configs/firebaseConfig";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "../configs/firebaseConfig";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import DropDownPicker from "react-native-dropdown-picker";
 import axios from "axios";
+import getCurrentLocation from "../utils/getCurrentLocation";
 
 export default function CreateProfile() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [bio, setBio] = useState("");
-  const [location, setLocation] = useState("");
+  const [city, setCity] = useState("");
   const [loading, setLoading] = useState(false);
-
   const [open, setOpen] = useState(false);
   const [skillLevel, setSkillLevel] = useState(null);
   const [items, setItems] = useState([
@@ -29,8 +29,12 @@ export default function CreateProfile() {
     { label: "Pro", value: "pro" },
   ]);
 
+
   const signUp = async () => {
     setLoading(true);
+
+    const latLong = await getCurrentLocation(city);
+
     try {
       const response = await createUserWithEmailAndPassword(
         auth,
@@ -38,7 +42,7 @@ export default function CreateProfile() {
         password
       );
       const user = response.user;
-      const uid = user.uid;
+    //   const uid = user.uid;
       const token = await user.getIdToken();
     //   console.log("token in create profile", token);
 
@@ -49,9 +53,10 @@ export default function CreateProfile() {
 
       const userData = {
         bio: bio,
-        location: location,
         email: email,
         skill_level: skillLevel,
+        city: city,
+        latLong: latLong
       };
 
       await axios
@@ -109,8 +114,8 @@ export default function CreateProfile() {
         <TextInput
           style={styles.input}
           placeholder="Location"
-          onChangeText={(text) => setLocation(text)}
-          value={location}
+          onChangeText={(text) => setCity(text)}
+          value={city}
         />
         <DropDownPicker
           open={open}
