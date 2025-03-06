@@ -23,7 +23,7 @@ export default function App() {
 
 const MainApp = () => {
   const { user } = useContext(UserContext); // Destructure the user context
-  console.log("User in app", user)
+  // console.log("User in app", user)
   return (
     <NavigationContainer>
       <Stack.Navigator
