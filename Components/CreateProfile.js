@@ -40,7 +40,7 @@ export default function CreateProfile() {
       const user = response.user;
       const uid = user.uid;
       const token = await user.getIdToken();
-      console.log("token in create profile", token);
+    //   console.log("token in create profile", token);
 
       const headers = {
         "Content-Type": "application/json",

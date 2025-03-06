@@ -7,7 +7,7 @@ export default function HikerCard({ hiker }) {
     <View style={styles.card}>
       <Text style={styles.avatar}>Avatar placeholder{hiker.avatar_id}</Text>
       <Text style={styles.username}>Username: {hiker.username}</Text>
-      <Text style={styles.location}>{hiker.location}</Text>
+      {/* <Text style={styles.location}>{hiker.location}</Text> */}
       <View style={styles.bioContainer}>
       <Text style={styles.bioText}>{hiker.bio || "No bio avaliable"}</Text>
       </View>
