@@ -4,7 +4,7 @@ import {
   TextInput,
   TouchableOpacity,
   ImageBackground,
-  StyleSheet,
+  StyleSheet, FlatList
 } from "react-native";
 import React, { Component, useState, useEffect } from "react";
 import { auth } from "../configs/firebaseConfig";
@@ -13,6 +13,9 @@ import { db } from "../configs/firebaseConfig";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import DropDownPicker from "react-native-dropdown-picker";
 import axios from "axios";
+import { createAvatar } from '@dicebear/core';
+import { identicon } from '@dicebear/collection';
+import { SvgXml } from 'react-native-svg'
 import getCurrentLocation from "../utils/getCurrentLocation";
 
 export default function CreateProfile() {
@@ -21,6 +24,7 @@ export default function CreateProfile() {
   const [bio, setBio] = useState("");
   const [city, setCity] = useState("");
   const [loading, setLoading] = useState(false);
+  
   const [open, setOpen] = useState(false);
   const [skillLevel, setSkillLevel] = useState(null);
   const [items, setItems] = useState([
@@ -28,7 +32,9 @@ export default function CreateProfile() {
     { label: "Intermediate", value: "intermediate" },
     { label: "Pro", value: "pro" },
   ]);
-
+  const [selectedAvatar, setSelectedAvatar] = useState(null)
+  const avatarIcons = [{id: "1", seed: "Hiker1"}, {id: "2", seed: "Hiker2"}, {id: "3", seed: "Hiker3"}, {id: "4", seed: "Hiker4"}, {id: "5", seed: "Hiker5"},  {id: "6", seed: "Hiker6"}]
+  
 
   const signUp = async () => {
     setLoading(true);
@@ -91,6 +97,30 @@ export default function CreateProfile() {
     <>
       <View style={styles.container}>
         <Text style={styles.title}>CreateProfile</Text>
+      
+        <View style={styles.avatarContainer}>
+        <FlatList
+          data={avatarIcons}
+          numColumns={3}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              style={[
+                styles.avatarIcon,
+                selectedAvatar === item.seed && styles.selectedAvatar, 
+              ]}
+              onPress={() => setSelectedAvatar(item.seed)}
+            >
+              <SvgXml
+                xml={createAvatar(identicon, { seed: item.seed }).toString()}
+                width={50}
+                height={50}
+              />
+            </TouchableOpacity>
+          )}
+        />
+      </View>
+          
         <TextInput
           style={styles.input}
           placeholder="Email"
@@ -185,4 +215,23 @@ const styles = StyleSheet.create({
   dropdowntext: {
     color: "grey",
   },
+  avatarContainer: {
+    width: "100%", // Ensure it takes full width
+    alignItems: "center",
+  },
+  avatarIcon: {
+    padding: 10,
+    margin: 5,
+    borderWidth: 3,
+    borderColor: "transparent", // Default no border
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 50, // Circular shape
+    backgroundColor: "white", // White background
+    width: 70,
+    height: 70,
+  },
+  selected: {
+    borderColor :"grey",
+  }
 });
