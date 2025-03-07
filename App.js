@@ -1,15 +1,16 @@
-import { StyleSheet} from "react-native";
+import { StyleSheet } from "react-native";
 import * as React from "react";
-import { NavigationContainer} from "@react-navigation/native";
+import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import LoginScreen from './Components/LoginScreen';
-import CreateProfile from './Components/CreateProfile';
-import DirectMessage from './Components/DirectMessage';
-import Profile from './Components/Profile';
-import {  useContext } from 'react';
-import Header from './Components/Header';
-import { UserContext, UserProvider } from './contexts/UserContext';
+import LoginScreen from "./Components/LoginScreen";
+import CreateProfile from "./Components/CreateProfile";
+import DirectMessage from "./Components/DirectMessage";
+import Profile from "./Components/Profile";
+import { useContext } from "react";
+import Header from "./Components/Header";
+import { UserContext, UserProvider } from "./contexts/UserContext";
 import Navbar from "./Components/Navbar";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 const Stack = createNativeStackNavigator();
 
@@ -25,30 +26,32 @@ const MainApp = () => {
   const { user } = useContext(UserContext); // Destructure the user context
   // console.log("User in app", user)
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{
-          header: () => <Header />,
-        }}
-      >
-        {user ? (
-          <>
-            <Stack.Screen name="Main" component={Navbar} />
-            <Stack.Screen name="Profile" component={Profile} />
-            <Stack.Screen name="DirectMessage" component={DirectMessage} />
-          </>
-        ) : (
-          <>
-            <Stack.Screen
-              name="Login"
-              component={LoginScreen}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen name="CreateProfile" component={CreateProfile} />
-          </>
-        )}
-      </Stack.Navigator>
-    </NavigationContainer>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <NavigationContainer>
+        <Stack.Navigator
+          screenOptions={{
+            header: () => <Header />,
+          }}
+        >
+          {user ? (
+            <>
+              <Stack.Screen name="Main" component={Navbar} />
+              <Stack.Screen name="Profile" component={Profile} />
+              <Stack.Screen name="DirectMessage" component={DirectMessage} />
+            </>
+          ) : (
+            <>
+              <Stack.Screen
+                name="Login"
+                component={LoginScreen}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen name="CreateProfile" component={CreateProfile} />
+            </>
+          )}
+        </Stack.Navigator>
+      </NavigationContainer>
+    </GestureHandlerRootView>
   );
 };
 
