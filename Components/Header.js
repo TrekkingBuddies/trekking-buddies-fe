@@ -1,9 +1,11 @@
-import { View, Text, StyleSheet, Button } from 'react-native'
+import { View, Text, StyleSheet, Button, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { app, auth } from '../configs/firebaseConfig';
 import { getAuth, signOut } from 'firebase/auth';
+import { useNavigation } from '@react-navigation/native';
 
 export default function Header() {
+  const navigation = useNavigation();
 
 const handleSignOut = async () => {
     try {
@@ -13,10 +15,11 @@ const handleSignOut = async () => {
     }
 };
 
-  return (
+  return ( 
     <View style={styles.header}>
       <Text></Text>
-      <Button title="Sign Out" color="#2f4f4f" onPress={handleSignOut} /> 
+      <Button title="Sign Out" color="#2f4f4f" onPress={handleSignOut} />
+      <Button title='Profile' onPress={() => navigation.navigate('Profile')}></Button>
     </View>
   )
 }

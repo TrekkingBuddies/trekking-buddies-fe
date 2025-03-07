@@ -76,10 +76,9 @@ export default function CreateProfile() {
                 avatar_id: selectedAvatar,
                 username: username,
                 bio: bio,
-                location: location,
+                location: city,
                 email: email,
                 skill_level: skillLevel,
-                city: city,
                 latLong: latLong
             };
 
