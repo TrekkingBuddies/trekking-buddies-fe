@@ -1,5 +1,5 @@
 import axios from "axios";
-export default function getHikers(token, page = 1, limit = 3) {
+export default function getHikers(token, page = 1, limit = 3, filters) {
   if (!token) {
     console.log("no valid token");
   } else {
@@ -7,13 +7,24 @@ export default function getHikers(token, page = 1, limit = 3) {
       "Content-Type": "application/json",
       Authorization: token,
     };
+
+    let query = `https://trekking-buddies.onrender.com/api/users?p=${page}&limit=${limit}`;
+
+    if (filters) {
+      if (filters.skill_level && filters.skill_level !== "All") {
+        query += `&skill_level=${filters.skill_level.toLowerCase()}`;
+      }
+      if (filters.preferences && filters.preferences.length > 0) {
+        const encodedPreferences = filters.preferences.map((preference) =>
+          encodeURIComponent(preference)
+        );
+        query += `&preferences=${encodedPreferences.join(",")}`;
+      }
+    }
     return axios
-      .get(
-        `https://trekking-buddies.onrender.com/api/users?p=${page}&limit=${limit}`,
-        { headers }
-      )
+      .get(query, { headers })
       .then(({ data }) => {
-        return data; // Return the entire data object
+        return data;
       })
       .catch((err) => console.log(err, "get hikers error"));
   }
