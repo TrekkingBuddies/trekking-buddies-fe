@@ -26,7 +26,6 @@ export default function CreateProfile() {
     const [password, setPassword] = useState("");
     const [bio, setBio] = useState("");
     const [username, setUsername] = useState("");
-    const [location, setLocation] = useState("");
     const [city, setCity] = useState("");
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(false);
@@ -90,7 +89,6 @@ export default function CreateProfile() {
                 location: city,
                 email: email,
                 skill_level: skillLevel,
-                city: city,
                 latLong: latLong,
                 preferences: preferences
             };
