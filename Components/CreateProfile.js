@@ -3,8 +3,8 @@ import {
     Text,
     TextInput,
     TouchableOpacity,
-    ImageBackground,
-    FlatList
+    ScrollView,
+    LogBox
 } from "react-native";
 import React, { Component, useState, useEffect } from "react";
 import { auth } from "../configs/firebaseConfig";
@@ -15,19 +15,19 @@ import DropDownPicker from "react-native-dropdown-picker";
 import { createAvatar } from '@dicebear/core';
 import { identicon } from '@dicebear/collection';
 import { SvgXml } from 'react-native-svg'
+import CheckBox from "react-native-check-box";
 import getCurrentLocation from "../utils/getCurrentLocation";
 import styles from "../styles/createProfileStyles";
 import postUser from "../utils/postUser";
+LogBox.ignoreLogs(['VirtualizedLists should never be nested inside'])
 
 export default function CreateProfile() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [bio, setBio] = useState("");
     const [username, setUsername] = useState("");
-    const [location, setLocation] = useState("");
     const [city, setCity] = useState("");
     const [loading, setLoading] = useState(false);
-
     const [open, setOpen] = useState(false);
     const [skillLevel, setSkillLevel] = useState(null);
     const [items, setItems] = useState([
@@ -37,6 +37,10 @@ export default function CreateProfile() {
     ]);
     const [selectedAvatar, setSelectedAvatar] = useState(null)
     const avatarIcons = [{ id: "1", seed: "Hiker1" }, { id: "2", seed: "Hiker2" }, { id: "3", seed: "Hiker3" }, { id: "4", seed: "Hiker4" }, { id: "5", seed: "Hiker5" }, { id: "6", seed: "Hiker6" }]
+    const [uphill, setUphill] = useState(false)
+    const [flat, setFlat] = useState(false)
+    const [countryside, setCountryside] = useState(false)
+    const [dogFriendly, setDogFriendly] = useState(false)
 
 
     const signUp = async () => {
@@ -47,6 +51,11 @@ export default function CreateProfile() {
         setLoading(true);
 
         const latLong = await getCurrentLocation(city);
+        const preferences = []
+        if (uphill) preferences.push("Uphill")
+        if (flat) preferences.push("Flat")
+        if (countryside) preferences.push("Countryside")
+        if (dogFriendly) preferences.push("Dog Friendly")
         try {
 
             // const usernameDoc = doc(db, "usernames", username);  
@@ -80,7 +89,8 @@ export default function CreateProfile() {
                 location: city,
                 email: email,
                 skill_level: skillLevel,
-                latLong: latLong
+                latLong: latLong,
+                preferences: preferences
             };
 
             // await setDoc(usernameDoc, {uid})
@@ -98,28 +108,24 @@ export default function CreateProfile() {
 
     return (
         <>
-            <View style={styles.container}>
+            <ScrollView contentContainerStyle={styles.container}>
                 <Text style={styles.title}>CreateProfile</Text>
 
-                <View style={styles.container}>
-                    <FlatList
-                        data={avatarIcons}
-                        numColumns={3}
-                        keyExtractor={(item) => item.id}
-                        renderItem={({ item }) => (
-                            <TouchableOpacity
-                                onPress={() => setSelectedAvatar(item.seed)}
+                <View style={styles.avatarContainer}>
+                    {avatarIcons.map((item) => (
+                        <TouchableOpacity
+                            key={item.id}
+                            onPress={() => setSelectedAvatar(item.seed)}
                             >
-                                <View style={[styles.avatarIcon, selectedAvatar === item.seed && styles.selected]} >
-                                    <SvgXml
-                                        xml={createAvatar(identicon, { seed: item.seed }).toString()}
-                                        width={50}
-                                        height={50}
-                                    />
-                                </View>
-                            </TouchableOpacity>
-                        )}
-                    />
+                            <View style={[styles.avatarIcon, selectedAvatar === item.seed && styles.selected]} >
+                                <SvgXml
+                                    xml={createAvatar(identicon, { seed: item.seed }).toString()}
+                                    width={50}
+                                    height={50}
+                                />
+                            </View>
+                        </TouchableOpacity>
+                    ))}
                 </View>
 
                 <TextInput
@@ -166,10 +172,51 @@ export default function CreateProfile() {
                     style={styles.dropdown}
                     textStyle={styles.dropdowntext}
                 />
+                <Text>Preferences:</Text>
+                <View style={{flexDirection: 'row'}}>
+                    <Text style={{flex:0, margin:1}}>Uphill</Text>
+                    <CheckBox
+                        style={styles.checkbox}
+                        onClick={() => {
+                            setUphill(!uphill)
+                        }}
+                        isChecked={uphill}
+                    />
+                </View>
+                <View style={{flexDirection: 'row'}}>
+                    <Text style={{flex:0, margin:1}}>Flat</Text>
+                    <CheckBox
+                        style={styles.checkbox}
+                        onClick={() => {
+                            setFlat(!flat)
+                        }}
+                        isChecked={flat}
+                    />
+                </View>
+                <View style={{flexDirection: 'row'}}>
+                    <Text style={{flex:0, margin:1}}>Countryside</Text>
+                    <CheckBox
+                        style={styles.checkbox}
+                        onClick={() => {
+                            setCountryside(!countryside)
+                        }}
+                        isChecked={countryside}
+                    />
+                </View>
+                <View style={{flexDirection: 'row'}}>
+                    <Text style={{flex:0, margin:1}}>Dog Friendly</Text>
+                    <CheckBox
+                        style={styles.checkbox}
+                        onClick={() => {
+                            setDogFriendly(!dogFriendly)
+                        }}
+                        isChecked={dogFriendly}
+                    />
+                </View>
                 <TouchableOpacity style={styles.button} onPress={() => signUp()}>
                     <Text style={styles.buttonText}>Sign up</Text>
                 </TouchableOpacity>
-            </View>
+            </ScrollView>
         </>
     );
 }
