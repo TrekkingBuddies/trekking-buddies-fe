@@ -52,6 +52,9 @@ const styles = StyleSheet.create({
     avatarContainer: {
         width: "100%", // Ensure it takes full width
         alignItems: "center",
+        flex: 1,
+        flexDirection: 'row',
+        flexWrap : 'wrap'
     },
     avatarIcon: {
         padding: 10,

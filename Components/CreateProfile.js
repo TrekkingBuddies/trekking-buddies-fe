@@ -3,9 +3,8 @@ import {
     Text,
     TextInput,
     TouchableOpacity,
-    ImageBackground,
-    FlatList,
-    ScrollView
+    ScrollView,
+    LogBox
 } from "react-native";
 import React, { Component, useState, useEffect } from "react";
 import { auth } from "../configs/firebaseConfig";
@@ -20,6 +19,7 @@ import CheckBox from "react-native-check-box";
 import getCurrentLocation from "../utils/getCurrentLocation";
 import styles from "../styles/createProfileStyles";
 import postUser from "../utils/postUser";
+LogBox.ignoreLogs(['VirtualizedLists should never be nested inside'])
 
 export default function CreateProfile() {
     const [email, setEmail] = useState("");
@@ -113,25 +113,21 @@ export default function CreateProfile() {
             <ScrollView contentContainerStyle={styles.container}>
                 <Text style={styles.title}>CreateProfile</Text>
 
-                <View style={styles.container}>
-                    <FlatList
-                        data={avatarIcons}
-                        numColumns={3}
-                        keyExtractor={(item) => item.id}
-                        renderItem={({ item }) => (
-                            <TouchableOpacity
-                                onPress={() => setSelectedAvatar(item.seed)}
+                <View style={styles.avatarContainer}>
+                    {avatarIcons.map((item) => (
+                        <TouchableOpacity
+                            key={item.id}
+                            onPress={() => setSelectedAvatar(item.seed)}
                             >
-                                <View style={[styles.avatarIcon, selectedAvatar === item.seed && styles.selected]} >
-                                    <SvgXml
-                                        xml={createAvatar(identicon, { seed: item.seed }).toString()}
-                                        width={50}
-                                        height={50}
-                                    />
-                                </View>
-                            </TouchableOpacity>
-                        )}
-                    />
+                            <View style={[styles.avatarIcon, selectedAvatar === item.seed && styles.selected]} >
+                                <SvgXml
+                                    xml={createAvatar(identicon, { seed: item.seed }).toString()}
+                                    width={50}
+                                    height={50}
+                                />
+                            </View>
+                        </TouchableOpacity>
+                    ))}
                 </View>
 
                 <TextInput
