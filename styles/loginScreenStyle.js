@@ -57,6 +57,8 @@ const styles = StyleSheet.create({
     },
     signupButtonText: {
         color: '#52796f',
+        fontSize: 15,
+        fontWeight: "bold"
     },
 });
 

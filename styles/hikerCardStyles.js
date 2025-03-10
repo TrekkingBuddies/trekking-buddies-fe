@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     padding: 15,
     marginVertical: 10,
-    marginHorizontal: 15,
+    marginHorizontal: 20,
     borderRadius: 10,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
@@ -47,13 +47,13 @@ const styles = StyleSheet.create({
   },
   messageButton: {
     backgroundColor: "#52796f",
-    padding: 10,
+    padding: 7,
     borderRadius: 5,
     alignItems: "center",
   },
   buttonText: {
     color: "white",
-    fontSize: 16,
+    fontSize: 15,
   },
   dintance: {
     color: "#bebebe",
@@ -79,8 +79,8 @@ const styles = StyleSheet.create({
   skill_distance_container: {
     flexDirection: "row",
     justifyContent: "space-around",
-    marginTop: 13,
-    marginBottom: 10,
+    marginTop: 10,
+    marginBottom: 13,
   },
   location_container: { flexDirection: "row", alignItems: "center" },
 });

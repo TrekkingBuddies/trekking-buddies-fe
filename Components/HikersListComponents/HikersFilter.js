@@ -127,53 +127,33 @@ export default function HikersFilter({ setFilters }) {
             </Text>
           </MenuOption>
           <MenuOption
-            onSelect={() => handleDistanceSelect(1)}
-            style={
-              selectedDistance === "1km" ? styles.selectedOption : null
-            }
-          >
-            <Text
-              style={
-                selectedDistance === "1km" ? styles.selectedText : null
-              }
-            >
-              1 km
-            </Text>
-          </MenuOption>
-          <MenuOption
             onSelect={() => handleDistanceSelect(5)}
             style={
-              selectedDistance === "5km"
-                ? styles.selectedOption
-                : null
+              selectedDistance === "5km" ? styles.selectedOption : null
             }
           >
             <Text
               style={
-                selectedDistance === "5km"
-                  ? styles.selectedText
-                  : null
+                selectedDistance === "5km" ? styles.selectedText : null
               }
             >
               5 km
             </Text>
           </MenuOption>
           <MenuOption
-            onSelect={() => handleDistanceSelect(10)}
-            style={selectedDistance === "10km" ? styles.selectedOption : null}
-          >
-            <Text
-              style={selectedDistance === "10km" ? styles.selectedText : null}
-            >
-              10 km
-            </Text>
-          </MenuOption>
-          <MenuOption
             onSelect={() => handleDistanceSelect(20)}
-            style={selectedDistance === "20km" ? styles.selectedOption : null}
+            style={
+              selectedDistance === "20km"
+                ? styles.selectedOption
+                : null
+            }
           >
             <Text
-              style={selectedDistance === "20km" ? styles.selectedText : null}
+              style={
+                selectedDistance === "20km"
+                  ? styles.selectedText
+                  : null
+              }
             >
               20 km
             </Text>
@@ -186,6 +166,16 @@ export default function HikersFilter({ setFilters }) {
               style={selectedDistance === "50km" ? styles.selectedText : null}
             >
               50 km
+            </Text>
+          </MenuOption>
+          <MenuOption
+            onSelect={() => handleDistanceSelect(100)}
+            style={selectedDistance === "100km" ? styles.selectedOption : null}
+          >
+            <Text
+              style={selectedDistance === "100km" ? styles.selectedText : null}
+            >
+              100 km
             </Text>
           </MenuOption>
         </MenuOptions>

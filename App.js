@@ -46,7 +46,7 @@ const MainApp = () => {
                             component={LoginScreen}
                             options={{ headerShown: false }}
                         />
-                        <Stack.Screen name="CreateProfile" component={CreateProfile} />
+                        <Stack.Screen name="CreateProfile" component={CreateProfile} options={{ headerShown: false }}/>
                     </>
                 )}
             </Stack.Navigator>
