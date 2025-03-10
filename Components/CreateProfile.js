@@ -101,7 +101,7 @@ export default function CreateProfile() {
             <View style={styles.container}>
                 <Text style={styles.title}>CreateProfile</Text>
 
-                <View style={styles.avatarContainer}>
+                <View style={styles.container}>
                     <FlatList
                         data={avatarIcons}
                         numColumns={3}

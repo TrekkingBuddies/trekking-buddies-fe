@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export default function getHikerById(token, uid) {
+export default function patchHikerById(token, uid, userData) {
 
 if (!token) {
     console.log("no valid token");
@@ -10,8 +10,8 @@ if (!token) {
       Authorization: token,
     };
     return axios
-      .get(
-        `https://trekking-buddies.onrender.com/api/users/${uid}`,
+      .patch(
+        `https://trekking-buddies.onrender.com/api/users/${uid}`, userData,
         { headers }
       )
       .then(({ data }) => {
