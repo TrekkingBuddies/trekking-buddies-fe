@@ -1,16 +1,13 @@
 import React, { useEffect, useState, useContext } from "react";
-
-import { StreamChat } from "stream-chat";
+import { UserContext } from "../contexts/UserContext";
 
 import {
   Chat,
   Channel,
-  Window,
-  ChannelListHeaderErrorIndicator,
   MessageList,
   MessageInput,
-  Thread,
   LoadingIndicator,
+  OverlayProvider,
 } from "stream-chat-expo";
 
 import {
@@ -22,46 +19,60 @@ import {
   StyleSheet,
 } from "react-native";
 
-const apiKey = process.env.EXPO_PUBLIC_STREAM_API_KEY;
-const testUser = {
-  id: "jlahey",
-  name: "Jim Lahey",
-  image: "https://i.imgur.com/fR9Jz14.png",
-};
+export default function DirectMessage({ route }) {
+  const { hiker, client } = route.params;
 
-export default function DirectMessage({ hiker }) {
-  const [client, setClient] = useState(null);
+  const { user } = useContext(UserContext);
+
   const [channel, setChannel] = useState(null);
+
+  const currentUser = {
+    ...user,
+    id: user.uid,
+  };
+
+  const otherHiker = {
+    ...hiker,
+    id: hiker.uid,
+  };
 
   useEffect(() => {
     async function init() {
-      const chatClient = StreamChat.getInstance(apiKey);
-      await chatClient.connectUser(testUser, client.devToken(testUser.id));
-      const channel = chatClient.channel("messaging", hiker.username, {
-        name: "talk about hiking",
-        members: [user.id, hiker.username],
-      });
+      try {
+        console.log("hiker", otherHiker.id);
+        console.log("user", currentUser.id);
 
-      await channel.watch();
+        const channelID = [currentUser.id, otherHiker.id].sort().join("-");
 
-      setChannel(channel);
-      setClient(chatClient);
+        const newChannel = client.channel("messaging", channelID, {
+          name: "chat about hiking",
+          members: [currentUser.id, otherHiker.id],
+        });
+
+        await newChannel.create();
+        setChannel(newChannel);
+        await newChannel.watch();
+      } catch (error) {
+        console.log("Error Setting Up the Channel", error);
+      }
     }
 
-    init();
-  }, []);
+    if (client && user) {
+      init();
+    }
+  }, [client, otherHiker.id, currentUser]);
 
-  if (!channel || !client) return <LoadingIndicator />;
+  if (!channel) return <LoadingIndicator />;
 
   return (
-    <Chat client={client}>
-      <Channel channel={channel}>
-        <Window>
-          <ChannelHeader />
+    <OverlayProvider>
+      <Chat client={client}>
+        <Channel channel={channel}>
           <MessageList />
           <MessageInput />
-        </Window>
-      </Channel>
-    </Chat>
+        </Channel>
+      </Chat>
+    </OverlayProvider>
+    //<Text>message</Text>
   );
 }

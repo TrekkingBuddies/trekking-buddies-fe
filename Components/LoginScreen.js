@@ -11,7 +11,7 @@ import {
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../configs/firebaseConfig";
 import { Platform } from "react-native";
-import { StreamChat } from "stream-chat";
+//import { StreamChat } from "stream-chat";
 
 //styling sheet required here? <<<<<< ------- import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 
