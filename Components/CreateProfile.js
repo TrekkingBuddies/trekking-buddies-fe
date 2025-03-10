@@ -4,7 +4,7 @@ import {
     TextInput,
     TouchableOpacity,
     ImageBackground,
-    StyleSheet, FlatList
+    FlatList
 } from "react-native";
 import React, { Component, useState, useEffect } from "react";
 import { auth } from "../configs/firebaseConfig";
@@ -12,11 +12,12 @@ import { doc, getDocs, setDoc, collection, query, where, getDoc } from "firebase
 import { db } from "../configs/firebaseConfig";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import DropDownPicker from "react-native-dropdown-picker";
-import axios from "axios";
 import { createAvatar } from '@dicebear/core';
 import { identicon } from '@dicebear/collection';
 import { SvgXml } from 'react-native-svg'
 import getCurrentLocation from "../utils/getCurrentLocation";
+import styles from "../styles/createProfileStyles";
+import postUser from "../utils/postUser";
 
 export default function CreateProfile() {
     const [email, setEmail] = useState("");
@@ -87,27 +88,7 @@ export default function CreateProfile() {
             // const userDoc = doc(db, "users", uid);
             // await setDoc(userDoc, userData);
     
-
-            await axios
-                .post("https://trekking-buddies.onrender.com/api/users", userData, {
-                    headers,
-                })
-                .then((response) => {
-                    console.log("response in axios post", response);
-                    alert("Signed up!");
-                })
-                .catch((error) => {
-                    alert("Post request failed to sign up");
-                    console.log("error in axios post", error);
-                });
-
-            // TO SEND FROM FRONT-END DIRECTLY, NOT NEEDED UNLESS BACK-END BREAKS.
-            // await setDoc(doc(db, 'users', uid), {
-            //     bio: bio,
-            //     location: location,
-            //     email: email,
-            //     skill_level: skillLevel
-            // });
+            await postUser(userData, headers)
         } catch (error) {
             console.log(error);
             alert(error.message);
@@ -193,73 +174,3 @@ export default function CreateProfile() {
         </>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        alignItems: "center",
-        padding: 20,
-        backgroundColor: "#cad2c5",
-        minHeight: "100%",
-    },
-    title: {
-        fontSize: 24,
-        marginBottom: 20,
-    },
-    input: {
-        width: "80%",
-        height: 40,
-        borderColor: "gray",
-        borderWidth: 1,
-        borderRadius: 5,
-        marginBottom: 10,
-        paddingHorizontal: 10,
-    },
-    input_bio: {
-        width: "80%",
-        height: 80,
-        borderColor: "gray",
-        borderWidth: 1,
-        borderRadius: 5,
-        marginBottom: 10,
-        paddingHorizontal: 10,
-    },
-    button: {
-        backgroundColor: "#52796f",
-        padding: 10,
-        borderRadius: 5,
-        alignSelf: "center",
-        marginTop: 20,
-    },
-    buttonText: {
-        fontSize: 16,
-        color: "white",
-    },
-    dropdown: {
-        width: "80%",
-        alignSelf: "center",
-        borderColor: "gray",
-        backgroundColor: "none",
-    },
-    dropdowntext: {
-        color: "grey",
-    },
-    avatarContainer: {
-        width: "100%", // Ensure it takes full width
-        alignItems: "center",
-    },
-    avatarIcon: {
-        padding: 10,
-        margin: 5,
-        borderWidth: 3,
-        borderColor: "transparent",
-        alignItems: "center",
-        justifyContent: "center",
-        borderRadius: 50,
-        backgroundColor: "white",
-        width: 70,
-        height: 70,
-    },
-    selected: {
-        borderColor: "grey",
-    }
-});
