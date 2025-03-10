@@ -19,6 +19,7 @@ export default function LoginScreen({navigation}){
         try {
             const response = await signInWithEmailAndPassword(auth, email, password);
             const user = response.user; 
+            console.log(user)
             const uid = user.uid;
         } catch (error) {
             console.log(error)

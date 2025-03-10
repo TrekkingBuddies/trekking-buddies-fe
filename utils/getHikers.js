@@ -20,7 +20,11 @@ export default function getHikers(token, page = 1, limit = 3, filters) {
         );
         query += `&preferences=${encodedPreferences.join(",")}`;
       }
+      if (filters.distance && filters.distance !== "All") {
+        query += `&distance=${filters.distance}`;
+      }
     }
+    console.log(query)
     return axios
       .get(query, { headers })
       .then(({ data }) => {

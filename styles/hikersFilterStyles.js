@@ -2,13 +2,12 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
     container: {
-      flexDirection: "column",
       paddingTop: 10,
       alignItems: "center",
       gap: 4
     },
+    menu_container: {flexDirection: "row", gap: 40},
     menu: {
-      width: "100%",
       alignItems: "center",
       height: 30,
       justifyContent: "center",

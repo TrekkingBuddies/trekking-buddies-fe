@@ -12,6 +12,11 @@ import styles from "../../styles/hikersFilterStyles";
 
 export default function HikersFilter({ setFilters }) {
   const [selectedSkillLevel, setSelectedSkillLevel] = useState("All");
+  const [selectedDistance, setSelectedDistance] = useState("All");
+
+  const handleDistanceSelect = (distance) => {
+    setSelectedDistance(distance);
+  };
 
   const handleSkillLevelSelect = (skillLevel) => {
     setSelectedSkillLevel(skillLevel);
@@ -24,16 +29,24 @@ export default function HikersFilter({ setFilters }) {
     }));
   }, [selectedSkillLevel]);
 
+  useEffect(() => {
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      distance: selectedDistance,
+    }));
+  }, [selectedDistance]);
+
   return (
     <View style={styles.container}>
       <Tags setFilters={setFilters} />
+      <View style={styles.menu_container}>
       <Menu style={styles.menu}>
         <MenuTrigger customStyles={{ triggerText: { fontWeight: "bold" } }}>
           <Text>
             Skill Level:{"  "}
             <Text style={{ fontWeight: "bold", color: "#52796f" }}>
               {selectedSkillLevel}
-            </Text>{" "}
+            </Text>
             <AntDesign name="down" size={13} color="#52796f" />
           </Text>
         </MenuTrigger>
@@ -92,6 +105,92 @@ export default function HikersFilter({ setFilters }) {
           </MenuOption>
         </MenuOptions>
       </Menu>
+      <Menu style={styles.menu}>
+        <MenuTrigger customStyles={{ triggerText: { fontWeight: "bold" } }}>
+          <Text>
+            Distance:{"  "}
+            <Text style={{ fontWeight: "bold", color: "#52796f" }}>
+              {selectedDistance}
+            </Text> {selectedDistance !== "All" && "km"}
+            <AntDesign name="down" size={13} color="#52796f" />
+          </Text>
+        </MenuTrigger>
+        <MenuOptions style={styles.option}>
+          <MenuOption
+            onSelect={() => handleDistanceSelect("All")}
+            style={selectedDistance === "All" ? styles.selectedOption : null}
+          >
+            <Text
+              style={selectedDistance === "All" ? styles.selectedText : null}
+            >
+              All
+            </Text>
+          </MenuOption>
+          <MenuOption
+            onSelect={() => handleDistanceSelect(1)}
+            style={
+              selectedDistance === "1km" ? styles.selectedOption : null
+            }
+          >
+            <Text
+              style={
+                selectedDistance === "1km" ? styles.selectedText : null
+              }
+            >
+              1 km
+            </Text>
+          </MenuOption>
+          <MenuOption
+            onSelect={() => handleDistanceSelect(5)}
+            style={
+              selectedDistance === "5km"
+                ? styles.selectedOption
+                : null
+            }
+          >
+            <Text
+              style={
+                selectedDistance === "5km"
+                  ? styles.selectedText
+                  : null
+              }
+            >
+              5 km
+            </Text>
+          </MenuOption>
+          <MenuOption
+            onSelect={() => handleDistanceSelect(10)}
+            style={selectedDistance === "10km" ? styles.selectedOption : null}
+          >
+            <Text
+              style={selectedDistance === "10km" ? styles.selectedText : null}
+            >
+              10 km
+            </Text>
+          </MenuOption>
+          <MenuOption
+            onSelect={() => handleDistanceSelect(20)}
+            style={selectedDistance === "20km" ? styles.selectedOption : null}
+          >
+            <Text
+              style={selectedDistance === "20km" ? styles.selectedText : null}
+            >
+              20 km
+            </Text>
+          </MenuOption>
+          <MenuOption
+            onSelect={() => handleDistanceSelect(50)}
+            style={selectedDistance === "50km" ? styles.selectedOption : null}
+          >
+            <Text
+              style={selectedDistance === "50km" ? styles.selectedText : null}
+            >
+              50 km
+            </Text>
+          </MenuOption>
+        </MenuOptions>
+      </Menu>
+      </View>
     </View>
   );
 }

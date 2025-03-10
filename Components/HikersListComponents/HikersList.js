@@ -81,7 +81,7 @@ export default function HikersList({ filters }) {
           contentContainerStyle={styles.flatListContent}
         />
       ) : (
-        <Text>No hikers found.</Text>
+        <Text style={{textAlign: "center", marginTop: 20, fontSize: 15}}>No hikers found.</Text>
       )}
     </View>
   );

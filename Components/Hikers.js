@@ -6,7 +6,8 @@ import HikersFilter from "./HikersListComponents/HikersFilter";
 export default function Hikers() {
   const [filters, setFilters] = useState({
     skill_level: "All",
-    preferences: [],   
+    preferences: [],  
+    distance: "All" 
   });
 
   return (
