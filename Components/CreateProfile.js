@@ -52,10 +52,10 @@ export default function CreateProfile() {
 
         const latLong = await getCurrentLocation(city);
         const preferences = []
-        if (uphill) preferences.push("Uphill")
-        if (flat) preferences.push("Flat")
-        if (countryside) preferences.push("Countryside")
-        if (dogFriendly) preferences.push("Dog Friendly")
+        if (uphill) preferences.push("uphill")
+        if (flat) preferences.push("flat")
+        if (countryside) preferences.push("countryside")
+        if (dogFriendly) preferences.push("dog friendly")
         try {
 
             // const usernameDoc = doc(db, "usernames", username);  
