@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
         borderColor: "grey",
     },
     checkbox:{
-        
+        flex:0
     }
 });
 

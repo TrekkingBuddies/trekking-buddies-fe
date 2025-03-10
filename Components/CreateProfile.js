@@ -178,38 +178,47 @@ export default function CreateProfile() {
                     style={styles.dropdown}
                     textStyle={styles.dropdowntext}
                 />
-                <Text>Uphill</Text>
-                <CheckBox
-                    style={styles.checkbox}
-                    onClick={() => {
-                        setUphill(!uphill)
-                    }}
-                    isChecked={uphill}
-                />
-                <Text>Flat</Text>
-                <CheckBox
-                    style={styles.checkbox}
-                    onClick={() => {
-                        setFlat(!flat)
-                    }}
-                    isChecked={flat}
-                />
-                <Text>Countryside</Text>
-                <CheckBox
-                    style={styles.checkbox}
-                    onClick={() => {
-                        setCountryside(!countryside)
-                    }}
-                    isChecked={countryside}
-                />
-                <Text>Dog Friendly</Text>
-                <CheckBox
-                    style={styles.checkbox}
-                    onClick={() => {
-                        setDogFriendly(!dogFriendly)
-                    }}
-                    isChecked={dogFriendly}
-                />
+                <Text>Preferences:</Text>
+                <View style={{flexDirection: 'row'}}>
+                    <Text style={{flex:0, margin:1}}>Uphill</Text>
+                    <CheckBox
+                        style={styles.checkbox}
+                        onClick={() => {
+                            setUphill(!uphill)
+                        }}
+                        isChecked={uphill}
+                    />
+                </View>
+                <View style={{flexDirection: 'row'}}>
+                    <Text style={{flex:0, margin:1}}>Flat</Text>
+                    <CheckBox
+                        style={styles.checkbox}
+                        onClick={() => {
+                            setFlat(!flat)
+                        }}
+                        isChecked={flat}
+                    />
+                </View>
+                <View style={{flexDirection: 'row'}}>
+                    <Text style={{flex:0, margin:1}}>Countryside</Text>
+                    <CheckBox
+                        style={styles.checkbox}
+                        onClick={() => {
+                            setCountryside(!countryside)
+                        }}
+                        isChecked={countryside}
+                    />
+                </View>
+                <View style={{flexDirection: 'row'}}>
+                    <Text style={{flex:0, margin:1}}>Dog Friendly</Text>
+                    <CheckBox
+                        style={styles.checkbox}
+                        onClick={() => {
+                            setDogFriendly(!dogFriendly)
+                        }}
+                        isChecked={dogFriendly}
+                    />
+                </View>
                 <TouchableOpacity style={styles.button} onPress={() => signUp()}>
                     <Text style={styles.buttonText}>Sign up</Text>
                 </TouchableOpacity>
