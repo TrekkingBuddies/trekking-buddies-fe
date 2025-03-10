@@ -1,8 +1,10 @@
 import React, {useState} from 'react'
-import { View, Text, TextInput, TouchableOpacity, ImageBackground, StyleSheet, KeyboardAvoidingView } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, ImageBackground, KeyboardAvoidingView } from 'react-native';
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '../configs/firebaseConfig';
 import { Platform } from 'react-native';
+
+import styles from '../styles/loginScreenStyle';
 
 //styling sheet required here? <<<<<< ------- import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 
@@ -69,64 +71,3 @@ export default function LoginScreen({navigation}){
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-    backgroundImage: {
-        flex: 1,
-        justifyContent: 'center',
-    },
-    content: {
-        backgroundColor: 'rgba(255, 255, 255, 0.8)', // Semi-transparent white
-        padding: 20,
-        borderRadius: 10,
-        margin: 20,
-        
-    },
-    header: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        marginBottom: 5,
-    },
-    buddy:{
-        color: '#52796f'
-    },
-    subheader: {
-        fontSize: 18,
-        marginBottom: 20,
-    },
-    input: {
-        height: 40,
-        borderColor: 'gray',
-        borderWidth: 1,
-        borderRadius: 5,
-        marginBottom: 10,
-        paddingHorizontal: 10,
-    },
-    button: {
-        backgroundColor: '#52796f',
-        padding: 10,
-        borderRadius: 5,
-        alignItems: 'center',
-        marginBottom: 10,
-    },
-    buttonText: {
-        fontSize: 16,
-        color: "white",
-    },
-    signupText: {
-        textAlign: 'center',
-        marginTop: 10,
-    },
-    signupButton: {
-        alignItems: 'center',
-        marginTop: 5,
-        paddingBottom: 15
-    },
-    signupButtonText: {
-        color: '#52796f',
-    },
-});
-
