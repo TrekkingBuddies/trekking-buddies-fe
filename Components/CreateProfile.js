@@ -4,7 +4,8 @@ import {
     TextInput,
     TouchableOpacity,
     ImageBackground,
-    FlatList
+    FlatList,
+    ScrollView
 } from "react-native";
 import React, { Component, useState, useEffect } from "react";
 import { auth } from "../configs/firebaseConfig";
@@ -15,6 +16,7 @@ import DropDownPicker from "react-native-dropdown-picker";
 import { createAvatar } from '@dicebear/core';
 import { identicon } from '@dicebear/collection';
 import { SvgXml } from 'react-native-svg'
+import CheckBox from "react-native-check-box";
 import getCurrentLocation from "../utils/getCurrentLocation";
 import styles from "../styles/createProfileStyles";
 import postUser from "../utils/postUser";
@@ -27,7 +29,6 @@ export default function CreateProfile() {
     const [location, setLocation] = useState("");
     const [city, setCity] = useState("");
     const [loading, setLoading] = useState(false);
-
     const [open, setOpen] = useState(false);
     const [skillLevel, setSkillLevel] = useState(null);
     const [items, setItems] = useState([
@@ -37,6 +38,10 @@ export default function CreateProfile() {
     ]);
     const [selectedAvatar, setSelectedAvatar] = useState(null)
     const avatarIcons = [{ id: "1", seed: "Hiker1" }, { id: "2", seed: "Hiker2" }, { id: "3", seed: "Hiker3" }, { id: "4", seed: "Hiker4" }, { id: "5", seed: "Hiker5" }, { id: "6", seed: "Hiker6" }]
+    const [uphill, setUphill] = useState(false)
+    const [flat, setFlat] = useState(false)
+    const [countryside, setCountryside] = useState(false)
+    const [dogFriendly, setDogFriendly] = useState(false)
 
 
     const signUp = async () => {
@@ -47,6 +52,11 @@ export default function CreateProfile() {
         setLoading(true);
 
         const latLong = await getCurrentLocation(city);
+        const preferences = []
+        if (uphill) preferences.push("Uphill")
+        if (flat) preferences.push("Flat")
+        if (countryside) preferences.push("Countryside")
+        if (dogFriendly) preferences.push("Dog Friendly")
         try {
 
             // const usernameDoc = doc(db, "usernames", username);  
@@ -80,7 +90,9 @@ export default function CreateProfile() {
                 location: city,
                 email: email,
                 skill_level: skillLevel,
-                latLong: latLong
+                city: city,
+                latLong: latLong,
+                preferences: preferences
             };
 
             // await setDoc(usernameDoc, {uid})
@@ -98,7 +110,7 @@ export default function CreateProfile() {
 
     return (
         <>
-            <View style={styles.container}>
+            <ScrollView contentContainerStyle={styles.container}>
                 <Text style={styles.title}>CreateProfile</Text>
 
                 <View style={styles.container}>
@@ -166,10 +178,42 @@ export default function CreateProfile() {
                     style={styles.dropdown}
                     textStyle={styles.dropdowntext}
                 />
+                <Text>Uphill</Text>
+                <CheckBox
+                    style={styles.checkbox}
+                    onClick={() => {
+                        setUphill(!uphill)
+                    }}
+                    isChecked={uphill}
+                />
+                <Text>Flat</Text>
+                <CheckBox
+                    style={styles.checkbox}
+                    onClick={() => {
+                        setFlat(!flat)
+                    }}
+                    isChecked={flat}
+                />
+                <Text>Countryside</Text>
+                <CheckBox
+                    style={styles.checkbox}
+                    onClick={() => {
+                        setCountryside(!countryside)
+                    }}
+                    isChecked={countryside}
+                />
+                <Text>Dog Friendly</Text>
+                <CheckBox
+                    style={styles.checkbox}
+                    onClick={() => {
+                        setDogFriendly(!dogFriendly)
+                    }}
+                    isChecked={dogFriendly}
+                />
                 <TouchableOpacity style={styles.button} onPress={() => signUp()}>
                     <Text style={styles.buttonText}>Sign up</Text>
                 </TouchableOpacity>
-            </View>
+            </ScrollView>
         </>
     );
 }

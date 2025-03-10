@@ -67,6 +67,9 @@ const styles = StyleSheet.create({
     },
     selected: {
         borderColor: "grey",
+    },
+    checkbox:{
+        
     }
 });
 
