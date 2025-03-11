@@ -21,7 +21,10 @@ export default function HikerCard({ hiker }) {
               height={20}
             />
           </View>
+          <TouchableOpacity 
+          onPress={()=> {navigation.navigate("HikersProfile", { hiker })}}>
           <Text style={styles.username}>{hiker.username}</Text>
+          </TouchableOpacity>
         </View>
         <View style={styles.location_container}>
         <MaterialCommunityIcons name="map-marker" color={"#ccc"} size={23} />
