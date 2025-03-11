@@ -9,6 +9,7 @@ const UserContext = createContext(null);
 
 const UserProvider = ({children}) => {
     const [user, setUser] = useState(null);
+    const [avatar, setAvatar] = useState('Hiker1');
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
@@ -27,7 +28,7 @@ const UserProvider = ({children}) => {
       } 
 
     return (
-        <UserContext.Provider value={{user, setUser}}>
+        <UserContext.Provider value={{user, setUser, avatar, setAvatar}}>
             {children}
         </UserContext.Provider>
     )

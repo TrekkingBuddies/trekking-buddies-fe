@@ -24,7 +24,6 @@ export default function getHikers(token, page = 1, limit = 3, filters) {
         query += `&distance=${filters.distance}`;
       }
     }
-    console.log(query)
     return axios
       .get(query, { headers })
       .then(({ data }) => {

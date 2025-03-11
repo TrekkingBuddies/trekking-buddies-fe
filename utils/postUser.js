@@ -5,7 +5,6 @@ export default function postUser(userData, headers) {
         headers
     })
     .then((response) => {
-        console.log("response in axios post", response);
         alert("Signed up!");
     })
     .catch((error) => {

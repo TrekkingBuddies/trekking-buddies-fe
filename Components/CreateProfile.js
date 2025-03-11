@@ -6,9 +6,9 @@ import {
   ScrollView,
   LogBox,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { auth } from "../configs/firebaseConfig";
-import { createUserWithEmailAndPassword, updateProfile, } from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import DropDownPicker from "react-native-dropdown-picker";
 import { createAvatar } from "@dicebear/core";
 import { identicon } from "@dicebear/collection";
@@ -19,8 +19,10 @@ import styles from "../styles/createProfileStyles";
 import postUser from "../utils/postUser";
 import { useNavigation } from "@react-navigation/native";
 LogBox.ignoreLogs(["VirtualizedLists should never be nested inside"]);
+import { UserContext } from "../contexts/UserContext";
 
 export default function CreateProfile() {
+  const { setAvatar } = useContext(UserContext);
   const navigation = useNavigation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -54,6 +56,10 @@ export default function CreateProfile() {
       alert("Please enter a username");
       return;
     }
+    if (!city) {
+      alert("Please enter a city");
+      return;
+    }
     setLoading(true);
 
     const latLong = await getCurrentLocation(city);
@@ -68,11 +74,9 @@ export default function CreateProfile() {
         email,
         password
       );
+      setAvatar(selectedAvatar);
       const user = response.user;
-      const uid = user.uid;
       const token = await user.getIdToken();
-      console.log("token in create profile", token);
-
       const headers = {
         "Content-Type": "application/json",
         Authorization: token,
@@ -88,9 +92,6 @@ export default function CreateProfile() {
         latLong: latLong,
         preferences: preferences,
       };
-      await updateProfile(user, {
-        photoURL: selectedAvatar
-      });
       await postUser(userData, headers);
     } catch (error) {
       console.log(error);
@@ -244,18 +245,30 @@ export default function CreateProfile() {
             alignSelf: "center",
           }}
         />
-        <Text style={{ textAlign: "center", margin: 20, marginTop: 15, fontSize: 16 }}>
+        <Text
+          style={{
+            textAlign: "center",
+            margin: 20,
+            marginTop: 15,
+            fontSize: 16,
+          }}
+        >
           {" "}
           Or you already our <Text style={styles.buddy}>Buddy</Text>?{" "}
         </Text>
 
-        <TouchableOpacity
-          onPress={() => navigation.navigate("Login")}
-        >
-          <Text style={{color: '#52796f',
-        fontSize: 15,
-        fontWeight: "bold",
-        alignSelf: "center", marginTop: -13}}>Sign in</Text>
+        <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+          <Text
+            style={{
+              color: "#52796f",
+              fontSize: 15,
+              fontWeight: "bold",
+              alignSelf: "center",
+              marginTop: -13,
+            }}
+          >
+            Sign in
+          </Text>
         </TouchableOpacity>
       </ScrollView>
     </>

@@ -9,13 +9,11 @@ import {
 import React from "react";
 import { auth } from "../configs/firebaseConfig";
 import { signOut } from "firebase/auth";
-import { useNavigation } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 
 export default function Header() {
-  const navigation = useNavigation();
   let [fontsLoaded] = useFonts({
-    "Kodchasan-Medium": require("../assets/fonts/Kodchasan-Medium.ttf"), // Replace with your font file path
+    "Kodchasan-Medium": require("../assets/fonts/Kodchasan-Medium.ttf"),
   });
   console.log(fontsLoaded);
 
@@ -48,8 +46,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     backgroundColor: "#52796f",
-    paddingTop: 40,
-    paddingVertical: 15,
+    paddingTop: 25,
     paddingHorizontal: 20,
     alignItems: "center",
     borderBottomWidth: 1,

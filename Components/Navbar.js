@@ -13,7 +13,7 @@ import { UserContext } from "../contexts/UserContext";
 const Tab = createBottomTabNavigator();
 
 export default function Navbar() {
-  const { user } = useContext(UserContext);
+  const { avatar } = useContext(UserContext);
   return (
     <Tab.Navigator
       initialRouteName="Hikers"
@@ -63,7 +63,7 @@ export default function Navbar() {
               <View style={[styles.avatar, { borderColor: color }]}>
                 <SvgXml
                   xml={createAvatar(identicon, {
-                    seed: user?.photoURL ? user.photoURL : 'Hiker1',
+                    seed: avatar,
                   }).toString()}
                   width={21}
                   height={21}
