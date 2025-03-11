@@ -1,9 +1,10 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import Messages from "./Messages";
+
 import Hikers from "./Hikers";
 import { StyleSheet } from "react-native";
+import { MessagesTab } from "./MessagesComponents/MessagesTab";
 
 const Tab = createBottomTabNavigator();
 
@@ -35,7 +36,7 @@ export default function Navbar() {
       />
       <Tab.Screen
         name="Messages"
-        component={Messages}
+        component={MessagesTab}
         options={{
           tabBarLabel: "Messages",
           tabBarIcon: ({ color, size }) => (

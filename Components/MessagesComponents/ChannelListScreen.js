@@ -1,21 +1,26 @@
 import React from "react";
 
-import { ChannelList } from "stream-chat-expo"; // stream-chat-react-native Or stream-chat-expo
+import { ChannelList } from "stream-chat-expo";
+import { useContext } from "react";
+import { UserContext } from "../../contexts/UserContext";
 import { useAppContext } from "../../contexts/AppContext";
 
-const ChannelListScreen = (props) => {
+export const ChannelListScreen = (props) => {
+  const { user } = useContext(UserContext);
   const { setChannel } = useAppContext();
+
+  const onChannelSelect = (channel) => {
+    setChannel(channel);
+    //console.log("Channel selected (CLS):", channel);
+    const { navigation } = props;
+    navigation.navigate("ChannelScreen");
+  };
+
   return (
     <ChannelList
-      onSelect={(channel) => {
-        const { navigation } = props;
-        setChannel(channel);
-        navigation.navigate("ChannelScreen");
-      }}
-      filters={filters}
-      sort={sort}
+      onSelect={onChannelSelect}
+      filters={{ members: { $in: [user?.uid] } }}
+      sort={{ last_message_at: -1 }}
     />
   );
 };
-
-export default ChannelListScreen;

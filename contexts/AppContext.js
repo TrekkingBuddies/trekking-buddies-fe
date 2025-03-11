@@ -1,5 +1,3 @@
-// AppContext.js
-
 import React, { useState } from "react";
 
 export const AppContext = React.createContext({
@@ -10,8 +8,8 @@ export const AppContext = React.createContext({
 });
 
 export const AppProvider = ({ children }) => {
-  const [channel, setChannel] = useState();
-  const [thread, setThread] = useState();
+  const [channel, setChannel] = useState(null);
+  const [thread, setThread] = useState(null);
 
   return (
     <AppContext.Provider value={{ channel, setChannel, thread, setThread }}>

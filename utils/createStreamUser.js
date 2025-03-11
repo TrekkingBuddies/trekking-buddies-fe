@@ -1,4 +1,4 @@
-export default async function createStreamUser(user) {
+export default async function createStreamUser(user, token) {
   const apiKey = process.env.EXPO_PUBLIC_STREAM_API_KEY;
   try {
     const response = await fetch(
@@ -6,7 +6,7 @@ export default async function createStreamUser(user) {
       {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${apiKey}`,
+          Authorization: token,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({

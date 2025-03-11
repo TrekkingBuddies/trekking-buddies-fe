@@ -4,32 +4,38 @@ import { UserContext } from "../contexts/UserContext";
 
 const apiKey = process.env.EXPO_PUBLIC_STREAM_API_KEY;
 
-const chatClient = StreamChat.getInstance(apiKey);
-
 export const useChatClient = () => {
   const [clientIsReady, setClientIsReady] = useState(false);
-
   const { user } = useContext(UserContext);
 
-  const currentUser = {
-    id: user.uid,
-    name: user.username,
-  };
-
   useEffect(() => {
-    const setupClient = async () => {
+    if (!user) {
+      console.log("No user");
+      // If user is not available, exit the effect and don't attempt to connect the chat client
+      return;
+    }
+
+    const chatClient = StreamChat.getInstance(apiKey);
+
+    const connectUser = async () => {
       try {
-        chatClient.connectUser(
-          currentUser,
-          client.devToken(currentUser.id),
-          setClientIsReady(true)
+        await chatClient.connectUser(
+          { id: user.uid, name: user.username },
+          chatClient.devToken(user.uid)
         );
+        //console.log(chatClient.devToken(user.uid));
         setClientIsReady(true);
       } catch (error) {
-        if (error instanceof Error) {
-          console.error();
-        }
+        console.error("Error connecting user:", error);
       }
     };
-  });
+
+    connectUser();
+
+    // return () => {
+    //   chatClient.disconnectUser();
+    // };
+  }, [user]);
+
+  return { clientIsReady };
 };
