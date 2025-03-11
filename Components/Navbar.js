@@ -9,6 +9,7 @@ import { SvgXml } from "react-native-svg";
 import { identicon } from "@dicebear/collection";
 import { createAvatar } from "@dicebear/core";
 import { UserContext } from "../contexts/UserContext";
+import ChatStackNavigator from "./ChatStackNavigator";
 
 const Tab = createBottomTabNavigator();
 
@@ -41,7 +42,7 @@ export default function Navbar() {
       />
       <Tab.Screen
         name="Messages"
-        component={Messages}
+        component={ChatStackNavigator}
         options={{
           tabBarLabel: "Messages",
           tabBarIcon: ({ color, size }) => (
@@ -53,7 +54,7 @@ export default function Navbar() {
           ),
         }}
       />
-     <Tab.Screen
+      <Tab.Screen
         name="Profile"
         component={Profile}
         options={{
@@ -63,7 +64,7 @@ export default function Navbar() {
               <View style={[styles.avatar, { borderColor: color }]}>
                 <SvgXml
                   xml={createAvatar(identicon, {
-                    seed: user?.photoURL ? user.photoURL : 'Hiker1',
+                    seed: user?.photoURL ? user.photoURL : "Hiker1",
                   }).toString()}
                   width={21}
                   height={21}
@@ -88,6 +89,6 @@ const styles = StyleSheet.create({
     borderWidth: 1.5,
     borderRadius: 50,
     backgroundColor: "white",
-    marginBottom: -11
+    marginBottom: -11,
   },
 });
