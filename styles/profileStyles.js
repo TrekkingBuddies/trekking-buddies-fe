@@ -72,6 +72,7 @@ const styles = StyleSheet.create({
     deleteButton: {
       // backgroundColor: "#52796f",
       padding: 8,
+      marginBottom: 35,
       borderRadius: 5,
       alignSelf: "center",
       marginTop: 15,
@@ -112,6 +113,24 @@ const styles = StyleSheet.create({
       marginBottom: 50,
       width: "20%",
       alignItems: "center"
+    },
+    preferencesContainer: {
+      flexDirection: "column",
+      paddingLeft: 33,
+      gap: 2,
+    },
+    selected: {
+      borderColor: "grey",
+    },
+    plainText: {
+      fontSize: 20,
+      marginTop: 10,
+      marginBottom: 12,
+      textAlign: "center",
+    },
+    selectContainer: {
+      flexDirection: "row",
+      gap: 6,
     },
 });
 
