@@ -8,6 +8,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 export default function HikerCard({ hiker }) {
   const navigation = useNavigation();
+  const maxBioLength = 30;
   return (
     <View style={styles.card}>
       <View style={styles.user_main_container}>
@@ -32,7 +33,9 @@ export default function HikerCard({ hiker }) {
         </View>
       </View>
       <View style={styles.bioContainer}>
-        <Text style={styles.bioText}>{hiker.bio || "No bio avaliable"}</Text>
+        <Text style={styles.bioText}>
+            {hiker.bio ? hiker.bio.length > maxBioLength ?
+            `${hiker.bio.substring(0, maxBioLength)}...`: hiker.bio : "No bio avaliable"}</Text>
       </View>
       <View style={styles.skill_distance_container}>
         <Text style={styles.skill}>Skill level: {hiker.skill_level}</Text>

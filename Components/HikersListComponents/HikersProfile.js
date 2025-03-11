@@ -3,8 +3,6 @@ import {
     Text,
     View,
     TouchableOpacity,
-    ScrollView,
-    KeyboardAvoidingView,
 } from "react-native";
 import { createAvatar } from "@dicebear/core";
 import { identicon } from "@dicebear/collection";
@@ -20,7 +18,6 @@ export default function HikersProfile() {
     const { hiker } = route.params
     const navigation = useNavigation();
 
-    console.log(Array.isArray(hiker.preferences))
     return (
         <View style={styles.card}>
             <View style={styles.user_main_container}>
