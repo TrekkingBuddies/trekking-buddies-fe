@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LoginScreen from "./Components/LoginScreen";
 import CreateProfile from "./Components/CreateProfile";
 import DirectMessage from "./Components/DirectMessage";
+import HikersProfile from "./Components/HikersListComponents/HikersProfile";
 import Profile from "./Components/Profile";
 import { useContext } from "react";
 import Header from "./Components/Header";
@@ -37,6 +38,7 @@ const MainApp = () => {
                     <>
                         <Stack.Screen name="Main" component={Navbar} />
                         <Stack.Screen name="Profile" component={Profile} />
+                        <Stack.Screen name="HikersProfile" component={HikersProfile}/>
                         <Stack.Screen name="DirectMessage" component={DirectMessage} />
                     </>
                 ) : (
