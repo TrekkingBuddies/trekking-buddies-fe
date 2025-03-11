@@ -6,7 +6,6 @@ import {
   View,
   TouchableOpacity,
   TextInput,
-  StyleSheet,
   ScrollView,
   KeyboardAvoidingView,
   ActivityIndicator,
@@ -21,6 +20,8 @@ import deleteHikerById from "../utils/deleteHikerById";
 import { createAvatar } from "@dicebear/core";
 import { identicon } from "@dicebear/collection";
 import { SvgXml } from "react-native-svg";
+import styles from "../styles/profileStyles";
+import CheckBox from "react-native-check-box";
 LogBox.ignoreLogs(["VirtualizedLists should never be nested inside"]);
 
 export default function Profile() {
@@ -52,6 +53,10 @@ export default function Profile() {
     { id: "5", seed: "Hiker5" },
     { id: "6", seed: "Hiker6" },
   ];
+  const [uphill, setUphill] = useState(false);
+  const [flat, setFlat] = useState(false);
+  const [countryside, setCountryside] = useState(false);
+  const [dogFriendly, setDogFriendly] = useState(false);
 
   useEffect(() => {
     async function fetchUser() {
@@ -73,6 +78,12 @@ export default function Profile() {
         setBio(hikerResponse?.user?.bio || "");
         setLocation(hikerResponse?.user?.location || "");
         setSkillLevel(hikerResponse?.user?.skill_level || null);
+        hikerResponse.user.preferences.forEach((preference) => {
+          if (preference === "uphill") setUphill(true)
+          if (preference === "flat") setFlat(true)
+          if (preference === "countryside") setCountryside(true)
+          if (preference === "dog friendly") setDogFriendly(true)
+          })
       } catch (error) {
         console.error("Error fetching user:", error);
       } finally {
@@ -85,6 +96,11 @@ export default function Profile() {
 
   async function updateProfile() {
     const latLong = await getCurrentLocation(location);
+    const preferences = [];
+    if (uphill) preferences.push("uphill");
+    if (flat) preferences.push("flat");
+    if (countryside) preferences.push("countryside");
+    if (dogFriendly) preferences.push("dog friendly");
 
     const userData = {
       avatar_id: selectedAvatar,
@@ -94,6 +110,7 @@ export default function Profile() {
       email: email,
       skill_level: skillLevel,
       latLong: latLong,
+      preferences: preferences,
     };
 
     if (user && user.email !== email) {
@@ -191,26 +208,6 @@ export default function Profile() {
                       </View>
                     </TouchableOpacity>
                   ))}
-
-                  {/* <FlatList
-                                data={avatarIcons}
-                                ScrollEnabled={true}
-                                numColumns={3}
-                                keyExtractor={(item) => item.id}
-                                renderItem={({ item }) => (
-                                    <TouchableOpacity
-                                        onPress={() => setSelectedAvatar(item.seed)}
-                                    >
-                                        <View style={[styles.avatarIcon, selectedAvatar === item.seed && styles.selected]} >
-                                            <SvgXml
-                                                xml={createAvatar(identicon, { seed: item.seed }).toString()}
-                                                width={50}
-                                                height={50}
-                                            />
-                                    </View>
-                                </TouchableOpacity>
-                            )}
-                        /> */}
                 </View>
               )}
             </View>
@@ -305,6 +302,49 @@ export default function Profile() {
                 <Text>{skillLevel}</Text>
               </View>
             )}
+            <Text style={styles.plainText}>Your preferences</Text>
+              <View style={styles.preferencesContainer}>
+                <View style={styles.selectContainer}>
+                  <CheckBox
+                    disabled = {!editing}
+                    onClick={() => {
+                      setUphill(!uphill);
+                    }}
+                    isChecked={uphill}
+                  />
+                  <Text style={{ flex: 0, margin: 1 }}>uphill</Text>
+                </View>
+                <View style={styles.selectContainer}>
+                  <CheckBox
+                    disabled = {!editing}
+                    onClick={() => {
+                      setFlat(!flat);
+                    }}
+                    isChecked={flat}
+                  />
+                  <Text style={{ flex: 0, margin: 1 }}>flat</Text>
+                </View>
+                <View style={styles.selectContainer}>
+                  <CheckBox
+                    disabled = {!editing}
+                    onClick={() => {
+                      setCountryside(!countryside);
+                    }}
+                    isChecked={countryside}
+                  />
+                  <Text style={{ flex: 0, margin: 1 }}>countryside</Text>
+                </View>
+                <View style={styles.selectContainer}>
+                  <CheckBox
+                    disabled = {!editing}
+                    onClick={() => {
+                      setDogFriendly(!dogFriendly);
+                    }}
+                    isChecked={dogFriendly}
+                  />
+                  <Text style={{ flex: 0, margin: 1 }}>dog friendly</Text>
+                </View>
+              </View>
           </>
         ) : (
           <Text>Profile not available</Text>
@@ -337,118 +377,3 @@ export default function Profile() {
     </KeyboardAvoidingView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    // alignItems: "center",
-    padding: 20,
-    backgroundColor: "#cad2c5",
-    minHeight: "100%",
-  },
-  contentContainer: {
-    alignItems: "center",
-  },
-  avatarContainer: {
-    // width: screenWidth / 3,
-    padding: 10,
-    paddingTop: 0,
-    flex: 1,
-    flexDirection: "row",
-    flexWrap: "wrap",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#cad2c5",
-    // minHeight: "100%",
-  },
-  title: {
-    fontSize: 24,
-    marginBottom: 20,
-  },
-  input: {
-    width: "80%",
-    height: 40,
-    borderColor: "gray",
-    borderWidth: 1,
-    borderRadius: 5,
-    marginBottom: 10,
-    paddingHorizontal: 10,
-  },
-  input_bio: {
-    width: "80%",
-    height: 80,
-    borderColor: "gray",
-    borderWidth: 1,
-    borderRadius: 5,
-    marginBottom: 10,
-    paddingHorizontal: 10,
-  },
-  inputEditable: {
-    backgroundColor: "white",
-    borderColor: "grey",
-  },
-  inputNonEditable: {
-    backgroundColor: "#e0e0e0",
-    borderColor: "#bdbdbd",
-    color: "#757575",
-    borderWidth: 1,
-    borderRadius: 5,
-  },
-  button: {
-    backgroundColor: "#52796f",
-    padding: 10,
-    borderRadius: 5,
-    alignSelf: "center",
-    marginTop: 20,
-  },
-  editButton: {
-    backgroundColor: "#52796f",
-    padding: 10,
-    borderRadius: 5,
-    alignSelf: "center",
-    marginTop: 25,
-  },
-  deleteButton: {
-    // backgroundColor: "#52796f",
-    padding: 8,
-    borderRadius: 5,
-    alignSelf: "center",
-    marginTop: 15,
-    backgroundColor: "red",
-  },
-  buttonText: {
-    fontSize: 15,
-    color: "white",
-  },
-  dropdown: {
-    width: "80%",
-    alignSelf: "center",
-    borderColor: "gray",
-    backgroundColor: "white",
-  },
-  dropdowntext: {
-    color: "grey",
-  },
-  avatarIcon: {
-    padding: 12,
-    margin: 5,
-    borderWidth: 3,
-    borderColor: "transparent",
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 50,
-    backgroundColor: "white",
-  },
-  selected: {
-    borderColor: "grey",
-  },
-  saveButton: {
-    backgroundColor: "#52796f",
-    padding: 10,
-    borderRadius: 5,
-    alignSelf: "center",
-    marginTop: 20,
-    marginBottom: 50,
-    width: "20%",
-    alignItems: "center"
-  },
-});
