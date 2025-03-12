@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   ScrollView,
   LogBox,
+  ActivityIndicator
 } from "react-native";
 import React, { useState, useContext } from "react";
 import { auth } from "../configs/firebaseConfig";
@@ -18,9 +19,11 @@ import getCurrentLocation from "../utils/getCurrentLocation";
 import styles from "../styles/createProfileStyles";
 import postUser from "../utils/postUser";
 import { useNavigation } from "@react-navigation/native";
-LogBox.ignoreLogs(["VirtualizedLists should never be nested inside"]);
 import { UserContext } from "../contexts/UserContext";
 import client from "../configs/streamChatClient";
+
+
+LogBox.ignoreLogs(["VirtualizedLists should never be nested inside"]);
 
 export default function CreateProfile() {
   const { setAvatar } = useContext(UserContext);
@@ -246,6 +249,10 @@ export default function CreateProfile() {
         <TouchableOpacity style={styles.button} onPress={() => signUp()}>
           <Text style={styles.buttonText}>Sign up</Text>
         </TouchableOpacity>
+
+        {loading ? (
+          <ActivityIndicator size="large" color="#52796f" />
+        ) : null}
 
         <View
           style={{

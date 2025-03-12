@@ -171,7 +171,7 @@ export default function Profile() {
         keyboardShouldPersistTaps="handled"
       >
         {loading ? (
-          <ActivityIndicator size="large" color="#52796f"></ActivityIndicator>
+          <ActivityIndicator size="large" color="#52796f" />
         ) : hiker ? (
           <>
             <View style={styles.avatarContainer}>

@@ -1,7 +1,5 @@
 import {
   View,
-  StyleSheet,
-  Button,
   Image,
   Text,
   TouchableOpacity,
@@ -11,6 +9,7 @@ import { auth } from "../configs/firebaseConfig";
 import { signOut } from "firebase/auth";
 import { useFonts } from "expo-font";
 import client from "../configs/streamChatClient"
+import styles from "../styles/headerStyles";
 
 export default function Header() {
   let [fontsLoaded] = useFonts({
@@ -33,7 +32,13 @@ export default function Header() {
           source={require("../assets/logo.webp")}
           style={{ height: 50, width: 50, resizeMode: "contain" }}
         />
-        <Text style={styles.logoText}>Trekking{"\n"}Buddies</Text>
+        <Text style={{
+          fontFamily: "Kodchasan-Medium",
+          fontSize: 18,
+          lineHeight: 19,
+          marginTop: 6,
+          color: "white",
+        }}>Trekking{"\n"}Buddies</Text>
       </View>
       <TouchableOpacity style={styles.button} onPress={() => handleSignOut()}>
         <Text style={styles.buttonText}>Sign Out</Text>
@@ -41,50 +46,3 @@ export default function Header() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  header: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    backgroundColor: "#52796f",
-    paddingTop: 25,
-    paddingHorizontal: 20,
-    alignItems: "center",
-    borderBottomWidth: 1,
-    borderBottomColor: "#2980b9",
-    elevation: 4,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    height: 100,
-  },
-  headerText: {
-    color: "white",
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  logo: {
-    flexDirection: "row",
-    gap: 4,
-    alignItems: "center",
-  },
-  logoText: {
-    fontFamily: "Kodchasan-Medium",
-    fontSize: 18,
-    lineHeight: 19,
-    marginTop: 6,
-    color: "white",
-  },
-  button: {
-    backgroundColor: "#2f4f4f",
-    padding: 8,
-    borderRadius: 5,
-    width: "20%",
-    alignItems: "center",
-  },
-  buttonText: {
-    fontSize: 15,
-    color: "white",
-  },
-});

@@ -8,7 +8,6 @@ import { createAvatar } from "@dicebear/core";
 import { identicon } from "@dicebear/collection";
 import { SvgXml } from "react-native-svg";
 import { useNavigation } from "@react-navigation/native";
-
 import styles from "../../styles/hikersProfileStyles";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
