@@ -1,14 +1,9 @@
-import {
-  View,
-  Image,
-  Text,
-  TouchableOpacity,
-} from "react-native";
+import { View, Image, Text, TouchableOpacity } from "react-native";
 import React from "react";
 import { auth } from "../configs/firebaseConfig";
 import { signOut } from "firebase/auth";
 import { useFonts } from "expo-font";
-import client from "../configs/streamChatClient"
+import client from "../configs/streamChatClient";
 import styles from "../styles/headerStyles";
 
 export default function Header() {
@@ -32,13 +27,16 @@ export default function Header() {
           source={require("../assets/logo.webp")}
           style={{ height: 50, width: 50, resizeMode: "contain" }}
         />
-        <Text style={{
-          fontFamily: "Kodchasan-Medium",
-          fontSize: 17,
-          lineHeight: 19,
-          marginTop: 6,
-          color: "white",
-        }}>Trekking{"\n"}Buddies</Text>
+        <Text
+          style={{
+            fontFamily: "Kodchasan-Medium",
+            fontSize: 17,
+            lineHeight: 19,
+            color: "white",
+          }}
+        >
+          Trekking{"\n"}Buddies
+        </Text>
       </View>
       <TouchableOpacity style={styles.button} onPress={() => handleSignOut()}>
         <Text style={styles.buttonText}>Sign Out</Text>

@@ -12,13 +12,7 @@ import { AppContext } from "../contexts/AppContext";
 
 export default function DirectMessage() {
   const { channel } = useContext(AppContext);
-  const { setTopInset } = useAttachmentPickerContext();
-  const headerHeight = useHeaderHeight();
   const navigation = useNavigation();
-
-  useEffect(() => {
-    setTopInset(headerHeight);
-  }, [headerHeight, setTopInset]);
 
   useEffect(() => {
     navigation.setOptions({ title: channel.data.name });
@@ -35,7 +29,7 @@ export default function DirectMessage() {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       {channel ? (
-        <Channel channel={channel} keyboardVerticalOffset={headerHeight}>
+        <Channel channel={channel} keyboardVerticalOffset={0}>
           <MessageList />
           <MessageInput />
         </Channel>

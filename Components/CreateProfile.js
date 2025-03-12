@@ -115,7 +115,7 @@ export default function CreateProfile() {
       await client.connectUser(
         {
           id: user.uid,
-          name: user.uid,
+          name: username,
         },
         client.devToken(user.uid)
       );

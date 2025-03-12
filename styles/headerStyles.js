@@ -17,11 +17,6 @@ const styles = StyleSheet.create({
       shadowRadius: 3.84,
       height: 100,
     },
-    headerText: {
-      color: "white",
-      fontSize: 20,
-      fontWeight: "bold",
-    },
     logo: {
       flexDirection: "row",
       gap: 4,

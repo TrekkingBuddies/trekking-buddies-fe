@@ -12,7 +12,6 @@ import { UserContext } from "../contexts/UserContext";
 
 const Tab = createBottomTabNavigator();
 
-
 export default function Navbar() {
   const { avatar } = useContext(UserContext);
   return (
