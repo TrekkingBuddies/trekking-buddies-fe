@@ -15,6 +15,7 @@ import { ChannelList, Chat, OverlayProvider } from "stream-chat-expo";
 import client from "./configs/streamChatClient";
 import { MenuProvider } from "react-native-popup-menu";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { AppProvider } from "./contexts/AppContext";
 
 const Stack = createNativeStackNavigator();
 
@@ -25,7 +26,9 @@ export default function App() {
         <Chat client={client}>
           <MenuProvider>
             <UserProvider>
-              <MainApp />
+              <AppProvider>
+                <MainApp />
+              </AppProvider>
             </UserProvider>
           </MenuProvider>
         </Chat>
