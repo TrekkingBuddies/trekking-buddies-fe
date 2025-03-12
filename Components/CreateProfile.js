@@ -27,6 +27,7 @@ LogBox.ignoreLogs(["VirtualizedLists should never be nested inside"]);
 
 export default function CreateProfile() {
   const { setAvatar } = useContext(UserContext);
+  const { setCurrentUsername } = useContext(UserContext);
   const navigation = useNavigation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -78,7 +79,7 @@ export default function CreateProfile() {
         email,
         password
       );
-      
+
       setAvatar(selectedAvatar);
       const user = response.user;
       const token = await user.getIdToken();
@@ -105,12 +106,10 @@ export default function CreateProfile() {
         },
         client.devToken(user.uid)
       );
-     
     } catch (error) {
       console.log(error);
       alert(error.message);
     } finally {
-      
       setLoading(false);
     }
   };
@@ -145,7 +144,7 @@ export default function CreateProfile() {
           <TextInput
             style={styles.input}
             placeholder="Username"
-            onChangeText={(text) => setUsername(text)}
+            onChangeText={(text) => [setUsername(text)]}
             value={username}
           />
 
