@@ -16,6 +16,7 @@ import client from "./configs/streamChatClient";
 import { MenuProvider } from "react-native-popup-menu";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { AppProvider } from "./contexts/AppContext";
+import Messages from "./Components/Messages";
 
 const Stack = createNativeStackNavigator();
 
@@ -52,6 +53,7 @@ const MainApp = () => {
             <Stack.Screen name="Profile" component={Profile} />
             <Stack.Screen name="HikersProfile" component={HikersProfile} />
             <Stack.Screen name="DirectMessage" component={DirectMessage} />
+            <Stack.Screen name="Messages" component={Messages} />
           </>
         ) : (
           <>
