@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState } from "react";
 import { View } from "react-native";
 import HikersList from "./HikersListComponents/HikersList";
 import HikersFilter from "./HikersListComponents/HikersFilter";
