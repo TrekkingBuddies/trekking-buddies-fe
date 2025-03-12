@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   ImageBackground,
   KeyboardAvoidingView,
-  ActivityIndicator
+  ActivityIndicator,
 } from "react-native";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../configs/firebaseConfig";
@@ -24,7 +24,6 @@ export default function LoginScreen({ navigation }) {
     try {
       const response = await signInWithEmailAndPassword(auth, email, password);
       const user = response.user;
-      console.log(user);
       const uid = user.uid;
       await client.connectUser(
         {
@@ -34,8 +33,23 @@ export default function LoginScreen({ navigation }) {
         client.devToken(uid)
       );
     } catch (error) {
-      console.log(error);
-      alert(error.message);
+      switch (error.code) {
+        case "auth/user-not-found":
+          alert("User not found. Please check your email");
+          break;
+        case "auth/invalid-email":
+          alert("Email is wrong. Please check your email");
+          break;
+        case "auth/invalid-credential":
+          alert("Incorrect password. Please try again");
+          break;
+        case "auth/missing-password":
+          alert("Please enter your password");
+          break;
+        default:
+          alert(`Authentication failed: ${error.message}`);
+          break;
+      }
     } finally {
       setLoading(false);
     }
@@ -74,9 +88,7 @@ export default function LoginScreen({ navigation }) {
             <Text style={styles.buttonText}>Login</Text>
           </TouchableOpacity>
 
-          {loading ? (
-            <ActivityIndicator size="large" color="#52796f" />
-          ) : null}
+          {loading ? <ActivityIndicator size="large" color="#52796f" /> : null}
 
           <Text style={styles.signupText}>Don't have an account?</Text>
           <TouchableOpacity
