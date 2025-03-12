@@ -11,6 +11,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../configs/firebaseConfig";
 import { Platform } from "react-native";
 import styles from "../styles/loginScreenStyle";
+import client from "../configs/streamChatClient";
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
@@ -24,6 +25,13 @@ export default function LoginScreen({ navigation }) {
       const user = response.user;
       console.log(user);
       const uid = user.uid;
+      await client.connectUser(
+        {
+          id: uid,
+          name: uid,
+        },
+        client.devToken(uid)
+      );
     } catch (error) {
       console.log(error);
       alert(error.message);

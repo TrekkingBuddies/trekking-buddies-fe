@@ -10,15 +10,16 @@ import React from "react";
 import { auth } from "../configs/firebaseConfig";
 import { signOut } from "firebase/auth";
 import { useFonts } from "expo-font";
+import client from "../configs/streamChatClient"
 
 export default function Header() {
   let [fontsLoaded] = useFonts({
     "Kodchasan-Medium": require("../assets/fonts/Kodchasan-Medium.ttf"),
   });
-  console.log(fontsLoaded);
 
   const handleSignOut = async () => {
     try {
+      await client.disconnectUser();
       await signOut(auth);
     } catch (error) {
       console.error("Sign-out error:", error);
