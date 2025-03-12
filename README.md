@@ -49,7 +49,7 @@ Login -
 -The user may also sign up if they don't have an account by pressing 'Sign up'.
 
 
-Sign Up - <--------------------needs review for limits
+Sign Up - 
 
 -The sign up screen allows the user to input the information needed for thier account.
 
@@ -70,11 +70,13 @@ Sign Up - <--------------------needs review for limits
 
 Hikers - 
 
--This screen shows the other users/hikers signed up to the Trekking Buddies app. It shows the other hikers basic information including their: avatar, username, location, bio, skill level and distance to current user.
+-This screen shows the other users/hikers signed up to the Trekking Buddies app. It shows the other hikers basic information including their: avatar, username, location, bio preview, skill level and distance to current user.
 
 -The list of hikers uses pagination to limit load times.
 
 -Pressing the 'Message' button on a hiker's card will open up a direct message to them.
+
+-Pressing on a hiker's username will bring up an expanded view of the hiker's profile including more of their bio along with their preferences.
 
 -Pressing any of the preference options ('uphill', 'flat', 'countryside', 'dog friendly') will limit the shown hikers to those that have those preferences. Selecting more will further limit results.
 
