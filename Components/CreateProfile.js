@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   ScrollView,
   LogBox,
-  ActivityIndicator
+  ActivityIndicator,
 } from "react-native";
 import React, { useState, useContext } from "react";
 import { auth } from "../configs/firebaseConfig";
@@ -22,7 +22,6 @@ import { useNavigation } from "@react-navigation/native";
 import { UserContext } from "../contexts/UserContext";
 import client from "../configs/streamChatClient";
 
-
 LogBox.ignoreLogs(["VirtualizedLists should never be nested inside"]);
 
 export default function CreateProfile() {
@@ -31,6 +30,7 @@ export default function CreateProfile() {
   const navigation = useNavigation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordCheck, setPasswordCheck] = useState("");
   const [bio, setBio] = useState("");
   const [username, setUsername] = useState("");
   const [city, setCity] = useState("");
@@ -65,9 +65,22 @@ export default function CreateProfile() {
       alert("Please enter a city");
       return;
     }
+    if (!skillLevel) {
+      alert("Please choose you skill level");
+      return;
+    }
+    if (password !== passwordCheck) {
+      alert("Passwords do not match");
+      return;
+    }
     setLoading(true);
 
     const latLong = await getCurrentLocation(city);
+    if (!latLong) {
+      alert("Cannot find the city. Check you location again");
+      setLoading(false);
+      return;
+    }
     const preferences = [];
     if (uphill) preferences.push("uphill");
     if (flat) preferences.push("flat");
@@ -107,8 +120,28 @@ export default function CreateProfile() {
         client.devToken(user.uid)
       );
     } catch (error) {
-      console.log(error);
-      alert(error.message);
+      switch (error.code) {
+        case "auth/invalid-email":
+          alert("Email is wrong. Please check your email");
+          break;
+        case "auth/invalid-credential":
+          alert("Incorrect password. Please try again");
+          break;
+        case "auth/missing-password":
+          alert("Please enter your password");
+          break;
+        case "auth/password-does-not-meet-requirements":
+          alert(
+            "Password does not meet requirments: at least 1 lowercase letter, 1 uppercase letter, 1 number, 1 special char, 6 symbols total"
+          );
+          break;
+        case "auth/email-already-in-use":
+          alert("Email is already in use");
+          break;
+        default:
+          alert(`Authentication failed: ${error.message}`);
+          break;
+      }
     } finally {
       setLoading(false);
     }
@@ -160,6 +193,13 @@ export default function CreateProfile() {
             placeholder="Password"
             onChangeText={(text) => setPassword(text)}
             value={password}
+            secureTextEntry
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Retype Password"
+            onChangeText={(text) => setPasswordCheck(text)}
+            value={passwordCheck}
             secureTextEntry
           />
           <View
@@ -249,9 +289,7 @@ export default function CreateProfile() {
           <Text style={styles.buttonText}>Sign up</Text>
         </TouchableOpacity>
 
-        {loading ? (
-          <ActivityIndicator size="large" color="#52796f" />
-        ) : null}
+        {loading ? <ActivityIndicator size="large" color="#52796f" /> : null}
 
         <View
           style={{

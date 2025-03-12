@@ -79,11 +79,11 @@ export default function Profile() {
         setLocation(hikerResponse?.user?.location || "");
         setSkillLevel(hikerResponse?.user?.skill_level || null);
         hikerResponse.user.preferences.forEach((preference) => {
-          if (preference === "uphill") setUphill(true)
-          if (preference === "flat") setFlat(true)
-          if (preference === "countryside") setCountryside(true)
-          if (preference === "dog friendly") setDogFriendly(true)
-          })
+          if (preference === "uphill") setUphill(true);
+          if (preference === "flat") setFlat(true);
+          if (preference === "countryside") setCountryside(true);
+          if (preference === "dog friendly") setDogFriendly(true);
+        });
       } catch (error) {
         console.error("Error fetching user:", error);
       } finally {
@@ -117,8 +117,17 @@ export default function Profile() {
       try {
         await updateEmail(user, email);
       } catch (error) {
-        console.log("error updating email", error);
-        alert(error);
+        switch (error.code) {
+          case "auth/invalid-email":
+            alert("Email is wrong. Please check your email");
+            break;
+          case "auth/email-already-in-use":
+            alert("Email is already in use");
+            break;
+          default:
+            alert(`Authentication failed: ${error.message}`);
+            break;
+        }
         return;
       }
     }
@@ -127,8 +136,19 @@ export default function Profile() {
       try {
         await updatePassword(user, password);
       } catch (error) {
-        console.log(error);
-        alert(error);
+        switch (error.code) {
+          case "auth/missing-password":
+            alert("Please enter your password");
+            break;
+          case "auth/password-does-not-meet-requirements":
+            alert(
+              "Password does not meet requirments: at least 1 lowercase letter, 1 uppercase letter, 1 number, 1 special char, 6 symbols total"
+            );
+            break;
+          default:
+            alert(`Authentication failed: ${error.message}`);
+            break;
+        }
         return;
       }
     } else {
@@ -303,48 +323,48 @@ export default function Profile() {
               </View>
             )}
             <Text style={styles.plainText}>Your preferences</Text>
-              <View style={styles.preferencesContainer}>
-                <View style={styles.selectContainer}>
-                  <CheckBox
-                    disabled = {!editing}
-                    onClick={() => {
-                      setUphill(!uphill);
-                    }}
-                    isChecked={uphill}
-                  />
-                  <Text style={{ flex: 0, margin: 1 }}>uphill</Text>
-                </View>
-                <View style={styles.selectContainer}>
-                  <CheckBox
-                    disabled = {!editing}
-                    onClick={() => {
-                      setFlat(!flat);
-                    }}
-                    isChecked={flat}
-                  />
-                  <Text style={{ flex: 0, margin: 1 }}>flat</Text>
-                </View>
-                <View style={styles.selectContainer}>
-                  <CheckBox
-                    disabled = {!editing}
-                    onClick={() => {
-                      setCountryside(!countryside);
-                    }}
-                    isChecked={countryside}
-                  />
-                  <Text style={{ flex: 0, margin: 1 }}>countryside</Text>
-                </View>
-                <View style={styles.selectContainer}>
-                  <CheckBox
-                    disabled = {!editing}
-                    onClick={() => {
-                      setDogFriendly(!dogFriendly);
-                    }}
-                    isChecked={dogFriendly}
-                  />
-                  <Text style={{ flex: 0, margin: 1 }}>dog friendly</Text>
-                </View>
+            <View style={styles.preferencesContainer}>
+              <View style={styles.selectContainer}>
+                <CheckBox
+                  disabled={!editing}
+                  onClick={() => {
+                    setUphill(!uphill);
+                  }}
+                  isChecked={uphill}
+                />
+                <Text style={{ flex: 0, margin: 1 }}>uphill</Text>
               </View>
+              <View style={styles.selectContainer}>
+                <CheckBox
+                  disabled={!editing}
+                  onClick={() => {
+                    setFlat(!flat);
+                  }}
+                  isChecked={flat}
+                />
+                <Text style={{ flex: 0, margin: 1 }}>flat</Text>
+              </View>
+              <View style={styles.selectContainer}>
+                <CheckBox
+                  disabled={!editing}
+                  onClick={() => {
+                    setCountryside(!countryside);
+                  }}
+                  isChecked={countryside}
+                />
+                <Text style={{ flex: 0, margin: 1 }}>countryside</Text>
+              </View>
+              <View style={styles.selectContainer}>
+                <CheckBox
+                  disabled={!editing}
+                  onClick={() => {
+                    setDogFriendly(!dogFriendly);
+                  }}
+                  isChecked={dogFriendly}
+                />
+                <Text style={{ flex: 0, margin: 1 }}>dog friendly</Text>
+              </View>
+            </View>
           </>
         ) : (
           <Text>Profile not available</Text>

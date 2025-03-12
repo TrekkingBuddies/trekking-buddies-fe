@@ -28,7 +28,6 @@ export default function HikerCard({ hiker }) {
       });
 
       await channel.watch();
-      setChannel(channel);
       navigation.navigate("DirectMessage");
     } catch (err) {
       console.log(err);
