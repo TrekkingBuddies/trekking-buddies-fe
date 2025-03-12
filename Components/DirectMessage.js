@@ -1,20 +1,45 @@
-import React from "react";
-import { Channel, MessageInput, MessageList } from "stream-chat-expo";
+import React, { useContext, useEffect } from "react";
+import { SafeAreaView, Text, View } from "react-native";
+import {
+  Channel,
+  MessageInput,
+  MessageList,
+  useAttachmentPickerContext,
+} from "stream-chat-expo";
+import { useHeaderHeight } from "@react-navigation/elements";
+import { useNavigation } from "@react-navigation/native";
 import { AppContext } from "../contexts/AppContext";
-import { useContext } from "react";
-import { Text } from "react-native-svg";
 
 export default function DirectMessage() {
   const { channel } = useContext(AppContext);
+  const { setTopInset } = useAttachmentPickerContext();
+  const headerHeight = useHeaderHeight();
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    setTopInset(headerHeight);
+  }, [headerHeight, setTopInset]);
+
+  useEffect(() => {
+    navigation.setOptions({ title: "Channel Screen" });
+  }, [navigation]);
 
   if (!channel) {
-    return <Text>Loading or error, no channel found</Text>;
+    return (
+      <SafeAreaView>
+        <Text>Loading chat ...</Text>
+      </SafeAreaView>
+    );
   }
 
   return (
-    <Channel channel={channel} keyboardVerticalOffset={0}>
-      <MessageList />
-      <MessageInput />
-    </Channel>
+    <SafeAreaView style={{ flex: 1 }}>
+      {channel ? (
+        <Channel channel={channel} keyboardVerticalOffset={headerHeight}>
+          <MessageList />
+          <MessageInput />
+        </Channel>
+      ) : null}
+    </SafeAreaView>
   );
 }

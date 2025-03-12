@@ -16,14 +16,15 @@ export default function HikerCard({ hiker }) {
   const { setChannel } = useContext(AppContext);
   const { user } = useContext(UserContext);
 
-  const  handleCreateChat = async ({ hiker }) => {
+  const handleCreateChat = async ({ hiker }) => {
     try {
       const channel = client.channel("messaging", {
-        members: [user.uid, hiker.uid]
+        members: [user.uid, hiker.uid],
+        name: `${hiker.username} & You`,
       });
 
       await channel.watch();
-      setChannel(channel)
+      setChannel(channel);
       navigation.navigate("DirectMessage");
     } catch (err) {
       console.log(err);
