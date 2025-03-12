@@ -34,7 +34,7 @@ export default function Header() {
         />
         <Text style={{
           fontFamily: "Kodchasan-Medium",
-          fontSize: 18,
+          fontSize: 17,
           lineHeight: 19,
           marginTop: 6,
           color: "white",

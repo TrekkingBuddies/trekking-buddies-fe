@@ -21,7 +21,7 @@ export default function DirectMessage() {
   }, [headerHeight, setTopInset]);
 
   useEffect(() => {
-    navigation.setOptions({ title: "Channel Screen" });
+    navigation.setOptions({ title: channel.data.name });
   }, [navigation]);
 
   if (!channel) {

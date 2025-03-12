@@ -41,16 +41,24 @@ const MainApp = () => {
   const { user } = useContext(UserContext);
   return (
     <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{
-          header: () => <Header />,
-        }}
-      >
+      <Stack.Navigator>
         {user ? (
           <>
-            <Stack.Screen name="Main" component={Navbar} />
-            <Stack.Screen name="Profile" component={Profile} />
-            <Stack.Screen name="HikersProfile" component={HikersProfile} />
+            <Stack.Screen
+              name="Main"
+              component={Navbar}
+              options={{ header: () => <Header /> }}
+            />
+            <Stack.Screen
+              name="Profile"
+              component={Profile}
+              options={{ header: () => <Header /> }}
+            />
+            <Stack.Screen
+              name="HikersProfile"
+              component={HikersProfile}
+              options={{ header: () => <Header /> }}
+            />
             <Stack.Screen name="DirectMessage" component={DirectMessage} />
           </>
         ) : (
