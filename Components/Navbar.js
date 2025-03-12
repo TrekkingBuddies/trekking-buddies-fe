@@ -12,17 +12,19 @@ import { UserContext } from "../contexts/UserContext";
 
 const Tab = createBottomTabNavigator();
 
+
 export default function Navbar() {
   const { avatar } = useContext(UserContext);
   return (
     <Tab.Navigator
+    key={avatar}
       initialRouteName="Hikers"
       screenOptions={{
         tabBarActiveTintColor: "white",
         tabBarInactiveTintColor: "#2f4f4f",
         tabBarStyle: styles.navbar,
         tabBarLabelStyle: { fontSize: 12 },
-        tabBarIconStyle: { marginBottom: -2 },
+        tabBarIconStyle: { marginBottom: -2 }, 
       }}
     >
       <Tab.Screen
