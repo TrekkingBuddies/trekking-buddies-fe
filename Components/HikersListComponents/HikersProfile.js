@@ -19,6 +19,7 @@ export default function HikersProfile() {
     const navigation = useNavigation();
 
     return (
+        <>
         <View style={styles.card}>
             <View style={styles.user_main_container}>
                 <View style={styles.avatar_username_container}>
@@ -63,7 +64,20 @@ export default function HikersProfile() {
             >
                 <Text style={styles.buttonText}>Message</Text>
             </TouchableOpacity>
+            <TouchableOpacity style={styles.blockButton}>
+                <Text style={styles.buttonText}>Block</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.reportButton}>
+                <Text style={styles.buttonText}>Report</Text>
+            </TouchableOpacity>
         </View>
+        <View>
+            <TouchableOpacity style={styles.backButton} 
+            onPress={() => navigation.navigate("Main")}>
+                <Text style={styles.buttonText}>Back</Text>
+            </TouchableOpacity>
+        </View>
+        </>
     )
 }
 

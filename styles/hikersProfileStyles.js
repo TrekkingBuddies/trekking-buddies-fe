@@ -106,6 +106,29 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         color: "black",
     },
+    backButton: {
+        backgroundColor: "#52796f",
+        padding: 7,
+        borderRadius: 5,
+        alignItems: "center",
+        marginTop: 5,
+        width: "80%",
+        alignSelf: "center",
+    },
+    reportButton: {
+        backgroundColor: "red",
+        padding: 7,
+        borderRadius: 5,
+        alignItems: "center",
+        marginTop: 5,
+    },
+    blockButton: {
+        backgroundColor: "red",
+        padding: 7,
+        borderRadius: 5,
+        alignItems: "center",
+        marginTop: 5,
+    }
 });
 
 export default styles;
