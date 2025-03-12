@@ -20,8 +20,9 @@ import styles from "../styles/createProfileStyles";
 import postUser from "../utils/postUser";
 import { useNavigation } from "@react-navigation/native";
 import { UserContext } from "../contexts/UserContext";
-import { UserContext } from "../contexts/UserContext";
 import client from "../configs/streamChatClient";
+
+
 LogBox.ignoreLogs(["VirtualizedLists should never be nested inside"]);
 
 export default function CreateProfile() {
