@@ -28,7 +28,7 @@ export default function Profile() {
   const [token, setToken] = useState(null);
   const [userId, setUserId] = useState(null);
   const [loading, setLoading] = useState(false);
-  const { user } = useContext(UserContext);
+  const { user, refetchUserInfo } = useContext(UserContext);
   const [hiker, setHiker] = useState(null);
   const [editing, setEditing] = useState(false);
   const [username, setUsername] = useState("");
@@ -158,6 +158,7 @@ export default function Profile() {
 
     try {
       await patchHikerById(token, userId, userData);
+      refetchUserInfo()
       console.log("profile patched");
       setEditing(false);
     } catch (patchError) {
