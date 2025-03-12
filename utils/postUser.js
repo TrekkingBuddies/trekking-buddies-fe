@@ -11,12 +11,4 @@ export default function postUser(userData, headers) {
         alert("Post request failed to sign up");
         console.log("error in axios post", error);
     });
-
-    // TO SEND FROM FRONT-END DIRECTLY, NOT NEEDED UNLESS BACK-END BREAKS.
-            // await setDoc(doc(db, 'users', uid), {
-            //     bio: bio,
-            //     location: location,
-            //     email: email,
-            //     skill_level: skillLevel
-            // });
 }
