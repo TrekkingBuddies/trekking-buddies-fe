@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from "react";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import HikersList from "./HikersListComponents/HikersList";
 import HikersFilter from "./HikersListComponents/HikersFilter";
 
