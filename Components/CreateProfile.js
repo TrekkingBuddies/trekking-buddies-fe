@@ -20,6 +20,7 @@ import postUser from "../utils/postUser";
 import { useNavigation } from "@react-navigation/native";
 LogBox.ignoreLogs(["VirtualizedLists should never be nested inside"]);
 import { UserContext } from "../contexts/UserContext";
+import client from "../configs/streamChatClient";
 
 export default function CreateProfile() {
   const { setAvatar } = useContext(UserContext);
@@ -74,6 +75,7 @@ export default function CreateProfile() {
         email,
         password
       );
+      
       setAvatar(selectedAvatar);
       const user = response.user;
       const token = await user.getIdToken();
@@ -92,11 +94,20 @@ export default function CreateProfile() {
         latLong: latLong,
         preferences: preferences,
       };
-      await postUser(userData, headers);
+      postUser(userData, headers);
+      await client.connectUser(
+        {
+          id: user.uid,
+          name: user.uid,
+        },
+        client.devToken(user.uid)
+      );
+     
     } catch (error) {
       console.log(error);
       alert(error.message);
     } finally {
+      
       setLoading(false);
     }
   };

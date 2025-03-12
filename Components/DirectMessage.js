@@ -1,8 +1,17 @@
-import { View, Text, TextInput, TouchableOpacity, ImageBackground, StyleSheet } from 'react-native';
+import React from 'react';
+import { Channel, MessageInput, MessageList } from 'stream-chat-expo';
 
+export default function DirectMessage({ route }) {
+  const { channel } = route.params;
 
-export default function DirectMessage (){
-    return (
-        <Text>Hello</Text>
-    )
+  if (!channel) {
+    return <Text>Loading or error, no channel found</Text>;
+  }
+
+  return (
+    <Channel channel={channel} keyboardVerticalOffset={0}>
+      <MessageList />
+      <MessageInput />
+    </Channel>
+  );
 }
