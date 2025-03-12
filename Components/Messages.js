@@ -8,7 +8,7 @@ import { AppContext } from "../contexts/AppContext";
 
 export default function Messages() {
   const { user } = useContext(UserContext);
-  const { channel, setChannel } = useContext(AppContext);
+  const { setChannel } = useContext(AppContext);
   const navigation = useNavigation();
 
   const filters = {
@@ -21,7 +21,7 @@ export default function Messages() {
       filters={filters}
       sort={sort}
       options={options}
-      onSelect={() => {
+      onSelect={(channel) => {
         setChannel(channel);
         navigation.navigate("DirectMessage");
       }}

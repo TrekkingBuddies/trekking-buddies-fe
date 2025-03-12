@@ -8,21 +8,23 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import client from "../../configs/streamChatClient";
 import { useContext } from "react";
 import { UserContext } from "../../contexts/UserContext";
+import { AppContext } from "../../contexts/AppContext";
 
 export default function HikerCard({ hiker }) {
   const navigation = useNavigation();
   const maxBioLength = 30;
+  const { setChannel } = useContext(AppContext);
   const { user } = useContext(UserContext);
 
   const  handleCreateChat = async ({ hiker }) => {
     try {
       const channel = client.channel("messaging", {
-        members: [user.uid, hiker.uid],
-        name: `You & ${hiker.username}`,
+        members: [user.uid, hiker.uid]
       });
 
       await channel.watch();
-      navigation.navigate("DirectMessage", { channel });
+      setChannel(channel)
+      navigation.navigate("DirectMessage");
     } catch (err) {
       console.log(err);
     }

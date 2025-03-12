@@ -1,21 +1,15 @@
 import React, { useState } from "react";
 
-export const AppContext = React.createContext({
-  channel: null,
-  setChannel: (channel) => {},
-  thread: null,
-  setThread: (thread) => {},
-});
+const AppContext = React.createContext(null);
 
-export const AppProvider = ({ children }) => {
+const AppProvider = ({ children }) => {
   const [channel, setChannel] = useState();
-  const [thread, setThread] = useState();
-
+console.log(channel)
   return (
-    <AppContext.Provider value={{ channel, setChannel, thread, setThread }}>
+    <AppContext.Provider value={{ channel, setChannel }}>
       {children}
     </AppContext.Provider>
   );
 };
 
-export const useAppContext = () => React.useContext(AppContext);
+export {AppContext, AppProvider}
