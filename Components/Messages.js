@@ -1,7 +1,6 @@
-import { View, Text } from "react-native";
+import { View } from "react-native";
 import { UserContext } from "../contexts/UserContext";
-import { useContext, useEffect, useState } from "react";
-import client from "../configs/streamChatClient";
+import { useContext } from "react";
 import { ChannelList, Chat, OverlayProvider } from "stream-chat-expo";
 import { useNavigation } from "@react-navigation/native";
 import { AppContext } from "../contexts/AppContext";
