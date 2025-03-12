@@ -9,6 +9,7 @@ import client from "../../configs/streamChatClient";
 import { useContext } from "react";
 import { UserContext } from "../../contexts/UserContext";
 import { AppContext } from "../../contexts/AppContext";
+import getHikerById from "../../utils/getHikerById";
 
 export default function HikerCard({ hiker }) {
   const navigation = useNavigation();
@@ -18,9 +19,12 @@ export default function HikerCard({ hiker }) {
 
   const handleCreateChat = async ({ hiker }) => {
     try {
+      const uid = user.uid;
+      const tokenRequest = await user.getIdToken();
+      const hikerResponse = await getHikerById(tokenRequest, uid);
       const channel = client.channel("messaging", {
         members: [user.uid, hiker.uid],
-        name: `${hiker.username} & You`,
+        name: `${hiker.username} & ${hikerResponse?.user?.username}`,
       });
 
       await channel.watch();
