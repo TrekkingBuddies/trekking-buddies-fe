@@ -11,7 +11,6 @@ import { StyleSheet } from "react-native";
 export default function Messages() {
   const { user } = useContext(UserContext);
   const { setChannel } = useContext(AppContext);
-  const { setChannel } = useContext(AppContext);
   const navigation = useNavigation();
 
   const filters = {
