@@ -67,7 +67,7 @@ export default function HikersList({ filters }) {
   return (
     <View style={styles.flatListContent}>
       {loading && page === 1 ? ( // only show loading on first load
-        <ActivityIndicator />
+        <ActivityIndicator size="large" color="#52796f" />
       ) : hikers && hikers.length > 0 ? (
         <FlatList
           data={hikers}
