@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   ImageBackground,
   KeyboardAvoidingView,
+  ActivityIndicator
 } from "react-native";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../configs/firebaseConfig";
@@ -72,6 +73,10 @@ export default function LoginScreen({ navigation }) {
           <TouchableOpacity style={styles.button} onPress={() => signIn()}>
             <Text style={styles.buttonText}>Login</Text>
           </TouchableOpacity>
+
+          {loading ? (
+            <ActivityIndicator size="large" color="#52796f" />
+          ) : null}
 
           <Text style={styles.signupText}>Don't have an account?</Text>
           <TouchableOpacity
