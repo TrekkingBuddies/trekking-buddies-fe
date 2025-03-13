@@ -6,9 +6,9 @@ Project Overview
 
 This repository is the frontend for the Trekking Buddies app, it uses endpoints and other files of the Trekking Buddies backend https://github.com/TrekkingBuddies/trekking-buddies-be.
 
-This project gives an android app to use the functionality avaiable on the backend in a user friendly way along on smartphones.
+This project allows an android app to use the functionality available on the backend in a user friendly way along on smartphones.
 
-Currently this is only possible by using Expo and is not aviavle for download independently.  
+Currently this is only possible by using Expo Go/an Android emulator and is not available for download independently.  
 
 Minimum Node version: v22.9.0
 Minimum Expo version: 52.0.37
@@ -18,7 +18,7 @@ Minimum Android version: 6+
 
 Environment Setup
 
-To keep the database secured, the information for the necessary .env will have to be requested from one of the owners of the repository.
+To keep the database secure, the information for the necessary .env will have to be requested from one of the owners of the repository.
 
 ---
 
@@ -28,13 +28,13 @@ To run the app you will need to do the following:
 
 1. Clone and open up the code in your chosen editor.
 
-2. Run 'npm install' or 'npm i'  in the terminal to install the needed dependencies.
+2. Run 'npm install' or 'npm i'  in the terminal to install the required dependencies.
 
-3. Setup the environment file, which you need to be requested.
+3. Setup the environment file, for which you need to be request the secure information.
 
-4. Download the Expo Go app from the play story on your android smartphone.
+4. Download the Expo Go app from the play store on your android smartphone.
 
-5. Run 'npx expo start' in the terminal to run expo
+5. Run 'npx expo start' in the terminal to run expo.
 
 6. Scan the QR code in the terminal with the Expo Go app.
 
@@ -57,7 +57,7 @@ Sign Up -
 
 -The first of these is the Username, Email, Password and Bio which are simple text fields.
 
--The location field will take the location given by the user and find the coordinates of the location to be stores with their data.
+-The location field will take the location given by the user and find the coordinates of the location to be stored with their data.
 
 -The 'Select Skill Level' drop down menu will aloow the user to select thier skill level.
 
@@ -65,12 +65,12 @@ Sign Up -
 
 -Pressing the 'Sign up' button will submit the user data. Any missing or invalid data will be flagged to the user.
 
--Completing this process will long in the user and take them to the Hikers screen.
+-Completing this process will log in the user and take them to the Hikers screen.
 
 
 Hikers - 
 
--This screen shows the other users/hikers signed up to the Trekking Buddies app. It shows the other hikers basic information including their: avatar, username, location, bio preview, skill level and distance to current user.
+-This screen shows the other users/hikers signed up to the Trekking Buddies app. It shows the other hikers basic information including their: avatar, username, location, bio preview, skill level and distance to current user. It is sorted by distance.
 
 -The list of hikers uses pagination to limit load times.
 
@@ -114,5 +114,13 @@ Profile -
 
 Messages - 
 
+-This screen displays all the current conversations between the user and other hikers.
+
+-Pressing on a conversation will redirect to the Direct Message screen.
+
 
 Direct Message - 
+
+-This screen displays all the messages between two users. 
+
+-At the bottom of the message screen is an input box to write and send a message. 
